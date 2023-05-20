@@ -1,0 +1,7 @@
+__pycache__
+htmlcov
+.vscode
+.pytest_cache
+.env
+venv
+
