@@ -12,6 +12,10 @@ def index():
 def bet():
     pass
 
+@app.route("/delete")
+def delete():
+    pass
+
 @app.route("/send", methods=["POST"])
 def send():
     pass
@@ -22,7 +26,12 @@ def scores():
 
 @app.route("/game")
 def add_game():
-    pass
+    allow = False
+    if users.is_admin():
+        allow = True
+        return render_template("game.html")
+    if not allow:
+        return render_template("error.html", error="Ei oikeutta nähdä sivua")
 
 @app.route("/outcome")
 def add_outcome():
