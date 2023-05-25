@@ -2,7 +2,7 @@ Avoimet pelit: {{ fixtures }}
 <hr>
 {% if session.user_id %}
 Olet kirjautunut sisään.
-<a href="/bet">Lisää veikkaus</a> | <a href="/scores">Katso pistetilanne</a> | <a href="/delete">Poista veikkaus </a> | <a href="/game">Lisää peli </a> | <a href="/logout">Kirjaudu ulos</a>
+<a href="/bet">Lisää veikkaus</a> | <a href="/scores">Katso pistetilanne</a> | <a href="/delete">Poista veikkaus </a> | <a href="/add_game">Lisää peli </a> | <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
 {% endif %}

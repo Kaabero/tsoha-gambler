@@ -1,6 +1,8 @@
 from app import app
 from flask import render_template, request, redirect
 import fixtures, users
+from sqlalchemy.sql import text
+from db import db
 
 @app.route("/")
 def index():
@@ -18,18 +20,29 @@ def delete():
 
 @app.route("/send", methods=["POST"])
 def send():
-    pass
+    home_team = request.form["home_team"]
+    visitor_team = request.form["visitor_team"]
+    date = request.form["date"]
+    time = request.form["time"]
+    sql = text("INSERT INTO games (home_team, visitor_team, date, time) VALUES (:home_team, :visitor_team, :date, :time)")
+    db.session.execute(sql, {"home_team":home_team, "visitor_team":visitor_team, "date":date, "time":time})
+    db.session.commit()
+    return redirect("/")
+
 
 @app.route("/scores")
 def scores():
     pass
 
-@app.route("/game")
+@app.route("/add_game", methods=["GET", "POST"])
 def add_game():
     allow = False
     if users.is_admin():
         allow = True
-        return render_template("game.html")
+        if request.method == "GET":
+            return render_template("add_game.html")
+        if request.method == "POST":
+            return redirect("/")
     if not allow:
         return render_template("error.html", error="Ei oikeutta nähdä sivua")
 
