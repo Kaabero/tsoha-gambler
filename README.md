@@ -7,9 +7,9 @@ Sovellus pitää kirjaa käyttäjien veikkauksista, pelien lopputuloksista sekä
 Sovelluksen ominaisuuksia ovat:
 
 * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-* Ylläpitäjä voi lisätä sovellukseen veikkauskohteita ja määritellä onko kohde avoin vai suljettu.
-* Käyttäjä voi hakea avoimia kohteita.
-* Käyttäjä voi lisätä veikkauksen avoimelle kohteelle.
+* Ylläpitäjä voi lisätä sovellukseen veikkauskohteita.
+* Käyttäjä voi nähdä tulevat pelit.
+* Käyttäjä voi lisätä veikkauksen tuleville peleille.
 * Ylläpitäjä voi lisätä pelin oikean lopputuloksen.
 * Ylläpitäjä voi lisätä käyttäjille pisteitä.
 * Käyttäjät ja ylläpitäjät voivat tarkastella pistetilannetta
