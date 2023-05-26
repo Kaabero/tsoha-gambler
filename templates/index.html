@@ -1,4 +1,12 @@
-Avoimet pelit: {{ fixtures }}
+Avoimet pelit:
+<hr>
+{% for fixture in fixtures %}
+Veikkaustunnus: {{ fixture.id }} <br>
+Kotijoukkue: {{ fixture.home_team }} <br>
+Vierasjoukkue: {{ fixture.visitor_team }} <br>
+Aika: {{ fixture.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
+<hr>
+{% endfor %}
 <hr>
 {% if session.user_id %}
 Olet kirjautunut sisään.

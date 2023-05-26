@@ -1,12 +1,10 @@
 from app import app
 from flask import render_template, request, redirect
 import fixtures, users, games
-from sqlalchemy.sql import text
-from db import db
 
 @app.route("/")
 def index():
-    list = fixtures.get_list()
+    list = fixtures.get_open_games()
     return render_template("index.html", fixtures=list)
     
 
@@ -22,10 +20,10 @@ def delete():
 def send():
     home_team = request.form["home_team"]
     visitor_team = request.form["visitor_team"]
-    date = request.form["date"]
+    day = request.form["date"]
     time = request.form["time"]
-    if games.add_game(home_team, visitor_team, date, time):
-        return redirect("/")
+    games.add_game(home_team, visitor_team, day, time)
+    return redirect("/")
 
 
 @app.route("/scores")
