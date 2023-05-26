@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
-import fixtures, users
+import fixtures, users, games
 from sqlalchemy.sql import text
 from db import db
 
@@ -24,10 +24,8 @@ def send():
     visitor_team = request.form["visitor_team"]
     date = request.form["date"]
     time = request.form["time"]
-    sql = text("INSERT INTO games (home_team, visitor_team, date, time) VALUES (:home_team, :visitor_team, :date, :time)")
-    db.session.execute(sql, {"home_team":home_team, "visitor_team":visitor_team, "date":date, "time":time})
-    db.session.commit()
-    return redirect("/")
+    if games.add_game(home_team, visitor_team, date, time):
+        return redirect("/")
 
 
 @app.route("/scores")
