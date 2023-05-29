@@ -1,0 +1,19 @@
+Avoimet pelit:
+<hr>
+{% for game in games %}
+Veikkaustunnus: {{ game.id }} <br>
+Kotijoukkue: {{ game.home_team }} <br>
+Vierasjoukkue: {{ game.visitor_team }} <br>
+Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
+<hr>
+{% endfor %}
+
+<form action="/new_bet" method="POST">
+    Veikkaustunnus: <input type="integer" name="game_id">
+    <p>
+    Kotijoukkueen maalit: <input type="integer" name="goals_home">
+    <p>
+    Vierasjoukkueen maalit: <input type="integer" name="goals_visitor"> 
+    <p>
+    <input type="submit" value="Lähetä">
+    </form>

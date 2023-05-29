@@ -1,23 +1,26 @@
 from app import app
 from flask import render_template, request, redirect
-import fixtures, users, games
+import users, games, bets
 
 @app.route("/")
 def index():
-    list = fixtures.get_open_games()
-    return render_template("index.html", fixtures=list)
+    list = games.get_open_games()
+    return render_template("index.html", games=list)
     
 
 @app.route("/bet")
 def bet():
-    pass
+    list = games.get_open_games()
+    return render_template("bet.html", games=list)
 
-@app.route("/delete")
-def delete():
-    pass
+@app.route("/score")
+def score():
+    list = games.scorable_games()
+    return render_template("score.html", games=list)
 
-@app.route("/send", methods=["POST"])
-def send():
+
+@app.route("/new_game", methods=["POST"])
+def new_game():
     home_team = request.form["home_team"]
     visitor_team = request.form["visitor_team"]
     day = request.form["date"]
@@ -25,10 +28,34 @@ def send():
     games.add_game(home_team, visitor_team, day, time)
     return redirect("/")
 
+@app.route("/new_outcome", methods=["POST"])
+def new_outcome():
+    game_id = request.form["game_id"]
+    goals_home = request.form["goals_home"]
+    goals_visitor = request.form["goals_visitor"]
+    if games.add_outcome(game_id, goals_home, goals_visitor):
+        return redirect("/")
+    else: 
+        return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Tarkista syötteet.")
 
-@app.route("/scores")
-def scores():
-    pass
+@app.route("/new_bet", methods=["POST"])
+def new_bet():
+    game_id = request.form["game_id"]
+    goals_home = request.form["goals_home"]
+    goals_visitor = request.form["goals_visitor"]
+    user_id = users.user_id()
+    if bets.bet(game_id, user_id, goals_home, goals_visitor):
+        return redirect("/")
+    else: 
+        return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Tarkista syötteet.")
+
+@app.route("/add_scores", methods=["POST"])
+def add_scores():
+    game_id = request.form["game_id"]
+    if scores.is_scorable(game_id):
+        print(game_id)
+        return redirect("/")
+
 
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():
@@ -40,15 +67,22 @@ def add_game():
         if request.method == "POST":
             return redirect("/")
     if not allow:
-        return render_template("error.html", error="Ei oikeutta nähdä sivua")
+        return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
-@app.route("/outcome")
+
+@app.route("/add_outcome", methods=["GET", "POST"])
 def add_outcome():
-    pass
+    allow = False
+    if users.is_admin():
+        allow = True
+        if request.method == "GET":
+            list = games.get_closed_games()
+            return render_template("add_outcome.html", fixtures=list)
+        if request.method == "POST":
+            return redirect("/")
+    if not allow:
+        return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
-@app.route("/score")
-def score():
-    pass
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

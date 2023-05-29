@@ -1,16 +1,20 @@
 Avoimet pelit:
 <hr>
-{% for fixture in fixtures %}
-Veikkaustunnus: {{ fixture.id }} <br>
-Kotijoukkue: {{ fixture.home_team }} <br>
-Vierasjoukkue: {{ fixture.visitor_team }} <br>
-Aika: {{ fixture.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
+{% for game in games %}
+Veikkaustunnus: {{ game.id }} <br>
+Kotijoukkue: {{ game.home_team }} <br>
+Vierasjoukkue: {{ game.visitor_team }} <br>
+Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
 <hr>
 {% endfor %}
-<hr>
 {% if session.user_id %}
 Olet kirjautunut sisään.
-<a href="/bet">Lisää veikkaus</a> | <a href="/scores">Katso pistetilanne</a> | <a href="/delete">Poista veikkaus </a> | <a href="/add_game">Lisää peli </a> | <a href="/logout">Kirjaudu ulos</a>
+<hr>
+<a href="/bet">Lisää veikkaus</a> | <a href="/scores">Katso pistetilanne</a> | <a href="/logout">Kirjaudu ulos</a>
+<hr>
+Ylläpitäjän toiminnot:
+<hr>
+<a href="/add_game">Lisää peli </a> | <a href="/delete">Poista peli </a> | <a href="/add_outcome">Lisää lopputulos </a> | <a href="/score">Pisteytä </a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
 {% endif %}

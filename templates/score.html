@@ -1,0 +1,21 @@
+<b>Pisteytys</b> <br>
+<br>
+Lopputulos varsinaisella peliajalla: <br>
+<br>
+Oikea tulosveto = 3 pistettä <br>
+Oikea pitkäveto = 1 piste
+<hr>
+Pisteyttämättä olevat pelit:
+<hr>
+{% for game in games %}
+Veikkaustunnus: {{ game.id }} <br>
+Kotijoukkueen maalit: {{ game.goals_home }} <br>
+Vierasjoukkueen maalit: {{ game.goals_visitor }} <br>
+<hr>
+{% endfor %}
+
+<form action="/add_scores" method="POST">
+    Anna veikkaustunnus pelistä, jonka haluat pisteyttää: <input type="integer" name="game_id">
+    <p>
+    <input type="submit" value="Lähetä">
+    </form>
