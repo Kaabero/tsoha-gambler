@@ -37,8 +37,15 @@ def get_open_games():
     return games
 
 def get_closed_games():
-    sql = text("SELECT * FROM games WHERE date < NOW() ORDER BY date")
+    sql = text("SELECT * FROM games WHERE date < NOW() AND outcome_added is null ORDER BY date")
     games = db.session.execute(sql).fetchall()
     db.session.commit()
     return games
+
+def mark_as_registered(game_id):
+    sql = text("UPDATE games SET outcome_added=1 WHERE id=:game_id")
+    db.session.execute(sql, {"game_id":game_id})
+    db.session.commit()
+
+
 

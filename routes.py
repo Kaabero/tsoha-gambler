@@ -34,6 +34,7 @@ def new_outcome():
     goals_home = request.form["goals_home"]
     goals_visitor = request.form["goals_visitor"]
     if games.add_outcome(game_id, goals_home, goals_visitor):
+        games.mark_as_registered(game_id)
         return redirect("/")
     else: 
         return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Tarkista syötteet.")
@@ -53,7 +54,6 @@ def new_bet():
 def add_scores():
     game_id = request.form["game_id"]
     if scores.is_scorable(game_id):
-        print(game_id)
         scores.mark_as_scored(game_id)
         return redirect("/")
     else: 
