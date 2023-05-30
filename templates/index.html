@@ -1,5 +1,5 @@
-Avoimet pelit:
-<hr>
+<b>Avoimet pelit: </b> <br>
+<br>
 {% for game in games %}
 Veikkaustunnus: {{ game.id }} <br>
 Kotijoukkue: {{ game.home_team }} <br>
@@ -8,12 +8,12 @@ Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
 <hr>
 {% endfor %}
 {% if session.user_id %}
-Olet kirjautunut sisään.
-<hr>
+Olet kirjautunut sisään. <br>
+<br>
 <a href="/bet">Lisää veikkaus</a> | <a href="/scores">Katso pistetilanne</a> | <a href="/logout">Kirjaudu ulos</a>
 <hr>
-Ylläpitäjän toiminnot:
-<hr>
+Ylläpitäjän toiminnot: <br>
+<br>
 <a href="/add_game">Lisää peli </a> | <a href="/delete">Poista peli </a> | <a href="/add_outcome">Lisää lopputulos </a> | <a href="/score">Pisteytä </a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
