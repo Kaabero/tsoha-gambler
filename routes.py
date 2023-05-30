@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
-import users, games, bets
+import users, games, bets, scores
 
 @app.route("/")
 def index():
@@ -15,7 +15,7 @@ def bet():
 
 @app.route("/score")
 def score():
-    list = games.scorable_games()
+    list = scores.scorable_games()
     return render_template("score.html", games=list)
 
 
@@ -54,7 +54,10 @@ def add_scores():
     game_id = request.form["game_id"]
     if scores.is_scorable(game_id):
         print(game_id)
+        scores.mark_as_scored(game_id)
         return redirect("/")
+    else: 
+        return render_template("error.html", message="Pisteytys ei onnistunut. Tarkista syötteet.")
 
 
 @app.route("/add_game", methods=["GET", "POST"])
