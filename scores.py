@@ -27,14 +27,36 @@ def correct_bets(game_id, goals_home, goals_visitor):
     sql = text("SELECT user_id FROM bets WHERE game_id=:game_id AND goals_home=:goals_home AND goals_visitor=:goals_visitor")
     users = db.session.execute(sql, {"game_id":game_id, "goals_home":goals_home, "goals_visitor":goals_visitor }).fetchall()
     
+    correct_bets = []
+
     for user in users:
-        add_three_points(game_id, user[0])
-    return
+        correct_bets.append(user[0])
+    print(correct_bets)
+    return correct_bets
+
+
+def home_wins(game_id):
+    sql = text("SELECT user_id FROM bets WHERE goals_home > goals_visitor")
+    users = db.session.execute(sql).fetchall()
+    
+    correct_home_wins = []
+
+    for user in users:
+        correct_home_wins.append(user[0])
+   
+    print(correct_home_wins)
+    return correct_home_wins
 
 def add_three_points(game_id, user_id):
     sql = text ("INSERT INTO scores (game_id, user_id, scores) VALUES (:game_id, :user_id, :scores)")
     db.session.execute(sql, {"game_id":game_id, "user_id":user_id, "scores":3})
     db.session.commit()
     return
-        
+
+def add_one_point(game_id, user_id):
+    sql = text ("INSERT INTO scores (game_id, user_id, scores) VALUES (:game_id, :user_id, :scores)")
+    db.session.execute(sql, {"game_id":game_id, "user_id":user_id, "scores":1})
+    db.session.commit()
+    return
+
 

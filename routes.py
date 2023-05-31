@@ -58,9 +58,21 @@ def add_scores():
         goals_home = outcome[0]
         goals_visitor = outcome[1]
 
-        scores.correct_bets(game_id, goals_home, goals_visitor)
-        #scores.correct_winner(game_id)
-        #scores.draw(game_id)
+        correct_bets = scores.correct_bets(game_id, goals_home, goals_visitor)
+        for user in correct_bets:
+            scores.add_three_points(game_id, user)
+
+        if goals_home > goals_visitor:
+            correct_home_wins = scores.home_wins(game_id)
+
+            for user in correct_home_wins:
+                if user not in correct_bets:
+                    scores.add_one_point(game_id, user)
+
+        #elif goals_home < goals_visitor:
+            #scores.visitor_wins(game_id)
+        #else:
+            #scores.draw(game_id)
         #scores.mark_as_scored(game_id)
         return redirect("/")
     else: 
