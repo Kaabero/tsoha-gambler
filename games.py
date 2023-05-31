@@ -42,6 +42,12 @@ def get_closed_games():
     db.session.commit()
     return games
 
+def get_outcome(game_id):
+    sql = text("SELECT goals_home, goals_visitor FROM outcomes WHERE game_id=:game_id")
+    goals = games = db.session.execute(sql, {"game_id":game_id}).fetchall()
+    return goals[0]
+    
+
 def mark_as_registered(game_id):
     sql = text("UPDATE games SET outcome_added=1 WHERE id=:game_id")
     db.session.execute(sql, {"game_id":game_id})

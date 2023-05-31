@@ -54,7 +54,14 @@ def new_bet():
 def add_scores():
     game_id = request.form["game_id"]
     if scores.is_scorable(game_id):
-        scores.mark_as_scored(game_id)
+        outcome = games.get_outcome(game_id)
+        goals_home = outcome[0]
+        goals_visitor = outcome[1]
+
+        scores.correct_bets(game_id, goals_home, goals_visitor)
+        #scores.correct_winner(game_id)
+        #scores.draw(game_id)
+        #scores.mark_as_scored(game_id)
         return redirect("/")
     else: 
         return render_template("error.html", message="Pisteytys ei onnistunut. Tarkista syötteet.")

@@ -22,3 +22,19 @@ def mark_as_scored(game_id):
     sql = text("UPDATE outcomes SET scored=1 WHERE game_id=:game_id")
     db.session.execute(sql, {"game_id":game_id})
     db.session.commit()
+
+def correct_bets(game_id, goals_home, goals_visitor):
+    sql = text("SELECT user_id FROM bets WHERE game_id=:game_id AND goals_home=:goals_home AND goals_visitor=:goals_visitor")
+    users = db.session.execute(sql, {"game_id":game_id, "goals_home":goals_home, "goals_visitor":goals_visitor }).fetchall()
+    
+    for user in users:
+        add_three_points(game_id, user[0])
+    return
+
+def add_three_points(game_id, user_id):
+    sql = text ("INSERT INTO scores (game_id, user_id, scores) VALUES (:game_id, :user_id, :scores)")
+    db.session.execute(sql, {"game_id":game_id, "user_id":user_id, "scores":3})
+    db.session.commit()
+    return
+        
+

@@ -1,4 +1,4 @@
-CREATE TABLE points (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games, user_id INTEGER REFERENCES users, point INTEGER);
+CREATE TABLE scores (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games, user_id INTEGER REFERENCES users, scores INTEGER);
 
 CREATE TABLE bets (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games, user_id INTEGER REFERENCES users, goals_home INTEGER, goals_visitor INTEGER);
 
