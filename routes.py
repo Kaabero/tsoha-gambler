@@ -69,8 +69,12 @@ def add_scores():
                 if user not in correct_bets:
                     scores.add_one_point(game_id, user)
 
-        #elif goals_home < goals_visitor:
-            #scores.visitor_wins(game_id)
+        elif goals_home < goals_visitor:
+            correct_visitor_wins = scores.visitor_wins(game_id)
+
+            for user in correct_visitor_wins:
+                if user not in correct_bets:
+                    scores.add_one_point(game_id, user)
         #else:
             #scores.draw(game_id)
         #scores.mark_as_scored(game_id)
