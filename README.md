@@ -37,6 +37,8 @@ Sovelluksen ominaisuuksia ovat:
 
 - Luo sovelluksen tarvitsemat taulut ohjaamalla tiedostossa schema.sql olevat komennot PostgreSQL-tulkille: *(venv) $ psql < schema.sql*
 
+- Luo hakemistoon tiedosto .env ja lisää sinne satunnaisesti muodostettu salainen avain: *SECRET_KEY=...*
+
 - Käynnistä sovellus komennolla: *(venv) $ flask run*
 
 - Komentorivin viimeisellä rivillä näkyy osoite, jonka kautta voit käyttää sovellusta nettiselaimella. 
