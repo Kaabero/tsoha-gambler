@@ -19,8 +19,8 @@ Sovelluksen ominaisuuksia ovat:
 
 * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 * Sovellukseen voi lisätä veikkauskohteita (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
-* Käyttäjä voi nähdä tulevat pelit
-* Käyttäjä voi lisätä veikkauksen tulveille peleille.
+* Käyttäjä voi nähdä tulevat pelit.
+* Käyttäjä voi lisätä veikkauksen tuleville peleille.
 * Menneille peleille voi lisätä lopputulokset (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
 * Käyttäjille voi lisätä pisteitä (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
 
