@@ -75,8 +75,12 @@ def add_scores():
             for user in correct_visitor_wins:
                 if user not in correct_bets:
                     scores.add_one_point(game_id, user)
-        #else:
-            #scores.draw(game_id)
+        else:
+            correct_draw = scores.draw(game_id)
+            for user in correct_draw:
+                if user not in correct_bets:
+                    scores.add_one_point(game_id, user)
+        
         #scores.mark_as_scored(game_id)
         return redirect("/")
     else: 

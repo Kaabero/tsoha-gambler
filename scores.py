@@ -31,7 +31,7 @@ def correct_bets(game_id, goals_home, goals_visitor):
 
     for user in users:
         correct_bets.append(user[0])
-    print(correct_bets)
+    
     return correct_bets
 
 
@@ -55,8 +55,18 @@ def visitor_wins(game_id):
     for user in users:
         correct_visitor_wins.append(user[0])
 
-    print(f"heippa{correct_visitor_wins}")
     return correct_visitor_wins
+
+def draw(game_id):
+    sql = text("SELECT user_id FROM bets WHERE goals_home = goals_visitor AND game_id=:game_id")
+    users = db.session.execute(sql, {"game_id":game_id}).fetchall()
+    
+    correct_draw = []
+
+    for user in users:
+        correct_draw.append(user[0])
+
+    return correct_draw
 
 def add_three_points(game_id, user_id):
     sql = text ("INSERT INTO scores (game_id, user_id, scores) VALUES (:game_id, :user_id, :scores)")
