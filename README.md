@@ -22,7 +22,7 @@ Sovelluksen ominaisuuksia ovat:
 * Käyttäjä voi nähdä tulevat pelit
 * Käyttäjä voi lisätä veikkauksen tulveille peleille.
 * Menneille peleille voi lisätä lopputulokset (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
-* Käyttäjille voi lisätä pisteitä (kesken).
+* Käyttäjille voi lisätä pisteitä (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
 
 
 ## Ohjeet testaamiseen
