@@ -18,6 +18,11 @@ def score():
     list = scores.scorable_games()
     return render_template("score.html", games=list)
 
+@app.route("/get_scores")
+def get_scores():
+    list = scores.get_scores()
+    return render_template("get_scores.html", scores=list)
+
 
 @app.route("/new_game", methods=["POST"])
 def new_game():
@@ -52,40 +57,44 @@ def new_bet():
 
 @app.route("/add_scores", methods=["POST"])
 def add_scores():
-    game_id = request.form["game_id"]
-    if scores.is_scorable(game_id):
-        outcome = games.get_outcome(game_id)
-        goals_home = outcome[0]
-        goals_visitor = outcome[1]
+    allow = False
+    if users.is_admin():
+        allow = True
+        game_id = request.form["game_id"]
+        if scores.is_scorable(game_id):
+            outcome = games.get_outcome(game_id)
+            goals_home = outcome[0]
+            goals_visitor = outcome[1]
 
-        correct_bets = scores.correct_bets(game_id, goals_home, goals_visitor)
-        for user in correct_bets:
-            scores.add_three_points(game_id, user)
+            correct_bets = scores.correct_bets(game_id, goals_home, goals_visitor)
+            for user in correct_bets:
+                scores.add_three_points(game_id, user)
 
-        if goals_home > goals_visitor:
-            correct_home_wins = scores.home_wins(game_id)
+            if goals_home > goals_visitor:
+                correct_home_wins = scores.home_wins(game_id)
 
-            for user in correct_home_wins:
-                if user not in correct_bets:
-                    scores.add_one_point(game_id, user)
+                for user in correct_home_wins:
+                    if user not in correct_bets:
+                        scores.add_one_point(game_id, user)
 
-        elif goals_home < goals_visitor:
-            correct_visitor_wins = scores.visitor_wins(game_id)
+            elif goals_home < goals_visitor:
+                correct_visitor_wins = scores.visitor_wins(game_id)
 
-            for user in correct_visitor_wins:
-                if user not in correct_bets:
-                    scores.add_one_point(game_id, user)
-        else:
-            correct_draw = scores.draw(game_id)
-            for user in correct_draw:
-                if user not in correct_bets:
-                    scores.add_one_point(game_id, user)
+                for user in correct_visitor_wins:
+                    if user not in correct_bets:
+                        scores.add_one_point(game_id, user)
+            else:
+                correct_draw = scores.draw(game_id)
+                for user in correct_draw:
+                    if user not in correct_bets:
+                        scores.add_one_point(game_id, user)
         
-        #scores.mark_as_scored(game_id)
-        return redirect("/")
-    else: 
-        return render_template("error.html", message="Pisteytys ei onnistunut. Tarkista syötteet.")
-
+            #scores.mark_as_scored(game_id)
+            return redirect("/")
+        else: 
+            return render_template("error.html", message="Pisteytys ei onnistunut. Tarkista syötteet.")
+    if not allow:
+        return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():

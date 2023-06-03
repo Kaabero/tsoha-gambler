@@ -1,0 +1,16 @@
+<b>Pistetilanne</b> <br>
+<hr>
+Kokonaispisteet (kesken): <br>
+<br>
+<hr>
+Pelikohtaiset pisteet: <br>
+<br>
+{% for score in scores %}
+Veikkaaja: {{ score.username }} <br>
+Peli: {{ score.home_team }} vs. {{ score.visitor_team }} <br>
+{{score.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
+Lopputulos: {{ score.outcome_home  }} - {{ score.outcome_visitor  }} <br>
+Veikkaus: {{ score.goals_home  }} - {{ score.goals_visitor }} <br>
+Pisteet: {{ score.scores }} <br>
+<hr>
+{% endfor %}

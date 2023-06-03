@@ -80,4 +80,11 @@ def add_one_point(game_id, user_id):
     db.session.commit()
     return
 
+def get_scores():
+    sql = text("SELECT G.home_team, G.visitor_team, G.date, S.scores, U.username, B.goals_home, B.goals_visitor, O.goals_home as outcome_home, O.goals_visitor as outcome_visitor FROM bets B, outcomes O, scores S, users U, games G WHERE S.user_id=U.id AND S.game_id=G.id AND O.game_id=G.id AND B.game_id=G.id AND B.user_id = U.id ORDER BY G.date")
+    scores = db.session.execute(sql).fetchall()
+    db.session.commit()
+    return scores
+
+
 
