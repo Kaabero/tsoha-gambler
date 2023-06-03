@@ -89,7 +89,7 @@ def add_scores():
                     if user not in correct_bets:
                         scores.add_one_point(game_id, user)
         
-            #scores.mark_as_scored(game_id)
+            scores.mark_as_scored(game_id)
             return redirect("/")
         else: 
             return render_template("error.html", message="Pisteytys ei onnistunut. Tarkista syötteet.")
