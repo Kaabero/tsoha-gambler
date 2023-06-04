@@ -1,4 +1,9 @@
-Avoimet pelit:
+Avoimet pelit:</b> <br>
+<br>
+{% if not games %}
+Ei avoimia pelejä <br>
+<br>
+{% else %}
 <hr>
 {% for game in games %}
 Veikkaustunnus: {{ game.id }} <br>
@@ -17,3 +22,4 @@ Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
     <p>
     <input type="submit" value="Lähetä">
     </form>
+{% endif %}
