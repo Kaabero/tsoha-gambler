@@ -1,5 +1,10 @@
 <b>Avoimet pelit: </b> <br>
 <br>
+{% if not games %}
+Ei avoimia pelejä <br>
+<br>
+{% else %}
+
 {% for game in games %}
 Veikkaustunnus: {{ game.id }} <br>
 Kotijoukkue: {{ game.home_team }} <br>
@@ -7,7 +12,9 @@ Vierasjoukkue: {{ game.visitor_team }} <br>
 Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
 <hr>
 {% endfor %}
+{% endif %}
 {% if session.user_id %}
+<hr>
 Olet kirjautunut sisään. <br>
 <br>
 <a href="/bet">Lisää veikkaus</a> | <a href="/get_scores">Katso pistetilanne</a> | <a href="/logout">Kirjaudu ulos</a>
