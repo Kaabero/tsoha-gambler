@@ -50,6 +50,8 @@ def new_bet():
     goals_home = request.form["goals_home"]
     goals_visitor = request.form["goals_visitor"]
     user_id = users.user_id()
+    if bets.already_placed_bet(user_id, game_id):
+        return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Sinulla on jo veikkaus tähän peliin.")
     if bets.bet(game_id, user_id, goals_home, goals_visitor):
         return redirect("/")
     else: 
@@ -150,7 +152,11 @@ def register():
         password2 = request.form["password2"]
         if password1 != password2:
             return render_template("error.html", message="Salasanat eroavat")
+        if users.too_short_password(password1):
+            return render_template("error.html", message="Salasanan minimipituus on 8 merkkiä.")
+        if users.too_short_username(username):
+            return render_template("error.html", message="Käyttäjätunnuksen minimipituus on 2 merkkiä.")
         if users.register(username, password1):
             return redirect("/")
         else:
-            return render_template("error.html", message="Rekisteröinti ei onnistunut")
+            return render_template("error.html", message="Rekisteröinti ei onnistunut. Käyttäjätunnus on jo käytössä.")

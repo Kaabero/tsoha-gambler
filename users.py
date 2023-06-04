@@ -22,12 +22,6 @@ def logout():
 def register(username, password):
     hash_value = generate_password_hash(password)
 
-    if len(username) < 2:
-        return False
-
-    if len(password) < 8:
-        return False
-
     try:
         sql = text("INSERT INTO users (username,password) VALUES (:username,:password)")
         db.session.execute(sql, {"username":username, "password":hash_value})
@@ -35,6 +29,14 @@ def register(username, password):
     except:
         return False
     return login(username, password)
+
+def too_short_password(password):
+    if len(password) < 8:
+        return True
+
+def too_short_username(username):
+    if len(username) < 2:
+        return True
 
 def user_id():
     return session.get("user_id",0)

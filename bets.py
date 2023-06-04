@@ -19,3 +19,20 @@ def bet(game_id, user_id, goals_home, goals_visitor):
                 return False
     
     return False
+
+def already_placed_bet(user_id, game_id):
+
+    sql = text("SELECT user_id, game_id FROM bets WHERE game_id=:game_id AND user_id=:user_id")
+    already_placed_bets = db.session.execute(sql, {"game_id":game_id, "user_id":user_id})
+    data = []
+    for row in already_placed_bets:
+        data.append({
+            'user_id': row.user_id,
+            'game_id': row.game_id
+        })
+
+    print(data)
+    if data:
+        return True
+       
+
