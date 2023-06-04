@@ -13,7 +13,7 @@ Sovelluksen ominaisuuksia ovat:
 * Ylläpitäjä voi lisätä menneille peleille oikean lopputuloksen.
 * Ylläpitäjä voi lisätä käyttäjille pisteitä.
 * Käyttäjät ja ylläpitäjät voivat tarkastella pistetilannetta.
-* Ylläpitäjä voi poistaa pelin.
+* Käyttäjä voi poistaa lisäämänsä veikkauksen ennen pelin alkua. 
 
 ## Versio 4.6.2023
 
