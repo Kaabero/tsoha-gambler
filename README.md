@@ -35,9 +35,11 @@ Sovelluksen ominaisuuksia ovat:
 
 - Asenna virtuaaliympäristöösi tarvittavat kirjastot komennolla: *(venv) $ pip install -r requirements.txt*
 
-- Luo sovelluksen tarvitsemat taulut ohjaamalla tiedostossa schema.sql olevat komennot PostgreSQL-tulkille: *(venv) $ psql < schema.sql*
+- Luo hakemistoon tiedosto .env ja lisää sinne satunnaisesti muodostettu salainen avain: *SECRET_KEY= salainen avain*
 
-- Luo hakemistoon tiedosto .env ja lisää sinne satunnaisesti muodostettu salainen avain: *SECRET_KEY=...*
+- Lisää .env tiedostoon tietokannan osoite: *DATABASE_URL=tietokannan osoite*
+
+- Luo sovelluksen tarvitsemat taulut ohjaamalla tiedostossa schema.sql olevat komennot PostgreSQL-tulkille: *(venv) $ psql -d tietokannan nimi < schema.sql*
 
 - Käynnistä sovellus komennolla: *(venv) $ flask run*
 
