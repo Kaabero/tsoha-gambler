@@ -37,7 +37,28 @@ def already_placed_bet(user_id, game_id):
 def get_bets():
     sql = text("SELECT G.home_team, G.visitor_team, G.date, U.username, B.goals_home, B.goals_visitor FROM bets B, users U, games G WHERE B.game_id=G.id AND B.user_id = U.id AND G.date BETWEEN NOW() AND G.date ORDER BY G.date")
     bets = db.session.execute(sql).fetchall()
-    db.session.commit()
     return bets
+
+def own_bets(user_id):
+    sql = text("SELECT B.game_id, G.home_team, G.visitor_team, G.date, B.goals_home, B.goals_visitor FROM bets B, games G WHERE G.id=B.game_id AND user_id=:user_id AND G.date BETWEEN NOW() AND G.date ORDER BY G.date")
+    bets = db.session.execute(sql, {"user_id":user_id})
+    return bets
+
+def delete_bet(user_id, game_id):
+    own_bets_first = own_bets(user_id)
+
+    sql = text("DELETE FROM bets WHERE game_id=:game_id AND user_id=:user_id")
+    db.session.execute(sql, {"user_id":user_id, "game_id":game_id})
+    db.session.commit()
+    own_bets_after = own_bets(user_id)
+    print(own_bets_first)
+    print(own_bets_after)
+    if own_bets_first == own_bets_after:
+        return False
+    else:
+        return True
+
+
+
        
 

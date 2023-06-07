@@ -33,6 +33,12 @@ def get_bets():
     list = bets.get_bets()
     return render_template("get_bets.html", bets=list)
 
+@app.route("/own_bets")
+def own_bets():
+    user_id = users.user_id()
+    list = bets.own_bets(user_id)
+    return render_template("own_bets.html", bets=list)
+
 
 @app.route("/new_game", methods=["POST"])
 def new_game():
@@ -66,6 +72,17 @@ def new_bet():
         return redirect("/")
     else: 
         return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Tarkista syötteet.")
+
+@app.route("/delete_bet", methods=["POST"])
+def delete_bet():
+    user_id = users.user_id()
+    game_id = request.form["game_id"]
+    if bets.delete_bet(user_id, game_id):
+        return redirect("/")
+    else: 
+        return render_template("error.html", message="Veikkauksen poisto ei onnistunut. Tarkista veikkaustunnus.")
+
+
 
 @app.route("/add_scores", methods=["POST"])
 def add_scores():

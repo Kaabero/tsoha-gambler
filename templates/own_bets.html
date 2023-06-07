@@ -1,0 +1,24 @@
+<b>Omat avoimet veikkaukset:</b> <br>
+<br>
+{% if not bets %}
+Ei avoimia veikkauksia <br>
+<hr>
+{% else %}
+<hr>
+{% for bet in bets %}
+Veikkaustunnus: {{ bet.game_id }} <br>
+Kotijoukkue: {{ bet.home_team }} <br>
+Vierasjoukkue: {{ bet.visitor_team }} <br>
+Aika: {{ bet.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
+Veikkaus: {{ bet.goals_home  }} - {{ bet.goals_visitor }} <br>
+<hr>
+{% endfor %}
+
+<form action="/delete_bet" method="POST">
+    Poista veikkaus: <br>
+    <br>
+    Veikkaustunnus: <input type="integer" name="game_id">
+    <p>
+    <input type="submit" value="Poista veikkaus">
+    </form>
+{% endif %}
