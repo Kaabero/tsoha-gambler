@@ -86,5 +86,10 @@ def get_scores():
     db.session.commit()
     return scores
 
+def get_total_scores():
+    sql = text("SELECT SUM(S.scores) as total_scores, U.username FROM scores S RIGHT JOIN users U ON S.user_id=U.id GROUP BY U.username")
+    scores = db.session.execute(sql).fetchall()
+    return scores
+
 
 

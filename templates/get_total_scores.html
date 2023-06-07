@@ -1,0 +1,16 @@
+<b>Kokonaispisteet</b> <br>
+<hr>
+{% if not scores %}
+Ei kirjattuja pisteitä <br>
+<br>
+{% else %}
+{% for score in scores %}
+Veikkaaja: {{ score.username }} <br>
+{% if not score.total_scores %}
+Kokonaispisteet: 0 <br>
+{% else %}
+Kokonaispisteet: {{ score.total_scores }} <br>
+{% endif %}
+<hr>
+{% endfor %}
+{% endif %}

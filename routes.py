@@ -23,6 +23,11 @@ def get_scores():
     list = scores.get_scores()
     return render_template("get_scores.html", scores=list)
 
+@app.route("/get_total_scores")
+def get_total_scores():
+    list = scores.get_total_scores()
+    return render_template("get_total_scores.html", scores=list)
+
 @app.route("/get_bets")
 def get_bets():
     list = bets.get_bets()
