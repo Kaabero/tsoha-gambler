@@ -1,0 +1,15 @@
+<b>Veikkaukset</b> <br>
+<br>
+{% if not bets %}
+Ei veikkauksia <br>
+<br>
+{% else %}
+{% for bet in bets %}
+Veikkaaja: {{ bet.username }} <br>
+Peli: {{ bet.home_team }} vs. {{ bet.visitor_team }} <br>
+{{bet.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
+Veikkaus: {{ bet.goals_home  }} - {{ bet.goals_visitor }} <br>
+<br>
+<hr>
+{% endfor %}
+{% endif %}
