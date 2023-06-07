@@ -31,8 +31,13 @@ def already_placed_bet(user_id, game_id):
             'game_id': row.game_id
         })
 
-    print(data)
     if data:
         return True
+
+def get_bets():
+    sql = text("SELECT G.home_team, G.visitor_team, G.date, U.username, B.goals_home, B.goals_visitor FROM bets B, users U, games G WHERE B.game_id=G.id AND B.user_id = U.id AND G.date BETWEEN NOW() AND G.date ORDER BY G.date")
+    bets = db.session.execute(sql).fetchall()
+    db.session.commit()
+    return bets
        
 
