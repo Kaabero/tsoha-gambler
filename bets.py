@@ -47,8 +47,8 @@ def own_bets(user_id):
 
 def delete_bet(user_id, game_id):
 
-    sql = text("SELECT date FROM games WHERE id=:game_id")
-    date = db.session.execute(sql, {"game_id":game_id})
+    sql = text("SELECT date FROM games G, bets B WHERE B.game_id = G.id AND B.game_id=:game_id AND B.user_id=:user_id")
+    date = db.session.execute(sql, {"game_id":game_id, "user_id":user_id})
 
     for row in date:
         if row.date > datetime.now():
@@ -61,6 +61,7 @@ def delete_bet(user_id, game_id):
                 return False
         else:
             return False
+    return False
 
 
 
