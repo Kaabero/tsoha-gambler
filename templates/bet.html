@@ -1,8 +1,8 @@
-Avoimet pelit:</b> <br>
+<b>Avoimet pelit:</b> <br>
 <br>
 {% if not games %}
 Ei avoimia pelejä <br>
-<br>
+<hr>
 {% else %}
 <hr>
 {% for game in games %}
@@ -20,6 +20,6 @@ Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
     <p>
     Vierasjoukkueen maalit: <input type="integer" name="goals_visitor"> 
     <p>
-    <input type="submit" value="Lähetä">
+    <input type="submit" value="Lisää veikkaus">
     </form>
 {% endif %}

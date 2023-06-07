@@ -7,6 +7,10 @@ Oikea pitkäveto = 1 piste
 <hr>
 <b>Pisteyttämättä olevat pelit:</b> <br>
 <br>
+{% if not games %}
+Ei pisteytettäviä pelejä <br>
+<br>
+{% else %}
 {% for game in games %}
 Veikkaustunnus: {{ game.game_id }} <br>
 Kotijoukkueen maalit: {{ game.goals_home }} <br>
@@ -19,3 +23,5 @@ Vierasjoukkueen maalit: {{ game.goals_visitor }} <br>
     <p>
     <input type="submit" value="Lähetä">
     </form>
+
+{% endif %}

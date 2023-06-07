@@ -1,5 +1,9 @@
-Sulkeutuneet pelit:
-<hr>
+<b>Lopputuloksen voi lisätä seuraaviin peleihin: </b> <br>
+<br>
+{% if not fixtures %}
+Ei kirjattavia pelejä <br>
+<br>
+{% else %}
 {% for fixture in fixtures %}
 Veikkaustunnus: {{ fixture.id }} <br>
 Kotijoukkue: {{ fixture.home_team }} <br>
@@ -15,5 +19,7 @@ Aika: {{ fixture.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
     <p>
     Vierasjoukkueen maalit: <input type="integer" name="goals_visitor"> 
     <p>
-    <input type="submit" value="Lähetä">
+    <input type="submit" value="Lisää lopputulos">
     </form>
+
+{% endif %}

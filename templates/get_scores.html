@@ -1,10 +1,9 @@
-<b>Pistetilanne</b> <br>
+<b>Pelikohtaiset pisteet</b> <br>
 <hr>
-Kokonaispisteet (kesken): <br>
+{% if not scores %}
+Ei kirjattuja pisteitä <br>
 <br>
-<hr>
-Pelikohtaiset pisteet: <br>
-<br>
+{% else %}
 {% for score in scores %}
 Veikkaaja: {{ score.username }} <br>
 Peli: {{ score.home_team }} vs. {{ score.visitor_team }} <br>
@@ -14,3 +13,4 @@ Veikkaus: {{ score.goals_home  }} - {{ score.goals_visitor }} <br>
 Pisteet: {{ score.scores }} <br>
 <hr>
 {% endfor %}
+{% endif %}

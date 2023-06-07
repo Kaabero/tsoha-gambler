@@ -2,7 +2,7 @@
 <br>
 {% if not games %}
 Ei avoimia pelejä <br>
-<br>
+<hr>
 {% else %}
 
 {% for game in games %}
@@ -14,14 +14,18 @@ Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
 {% endfor %}
 {% endif %}
 {% if session.user_id %}
-<hr>
 Olet kirjautunut sisään. <br>
 <br>
-<a href="/bet">Lisää veikkaus</a> | <a href="/get_scores">Katso pelien lopputulokset ja pisteet</a> | <a href="/logout">Kirjaudu ulos</a>
+<a href="/bet">Lisää veikkaus</a> <br>
+<a href="/get_bets">Tarkastele tulevien pelien veikkauksia</a> <br>
+<a href="/get_scores">Katso menneiden pelien veikkaukset, lopputulokset ja pisteet</a> <br>
+<a href="/logout">Kirjaudu ulos</a>
 <hr>
 Ylläpitäjän toiminnot: <br>
 <br>
-<a href="/add_game">Lisää peli </a> | <a href="/add_outcome">Lisää lopputulos </a> | <a href="/score">Pisteytä </a>
+<a href="/add_game">Lisää peli </a> <br>
+<a href="/add_outcome">Lisää lopputulos </a> <br> 
+<a href="/score">Pisteytä </a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
 {% endif %}
