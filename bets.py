@@ -41,22 +41,26 @@ def get_bets():
 
 def own_bets(user_id):
     sql = text("SELECT B.game_id, G.home_team, G.visitor_team, G.date, B.goals_home, B.goals_visitor FROM bets B, games G WHERE G.id=B.game_id AND user_id=:user_id AND G.date BETWEEN NOW() AND G.date ORDER BY G.date")
-    bets = db.session.execute(sql, {"user_id":user_id})
+    bets = db.session.execute(sql, {"user_id":user_id}).fetchall()
+    print(bets)
     return bets
 
 def delete_bet(user_id, game_id):
-    own_bets_first = own_bets(user_id)
 
-    sql = text("DELETE FROM bets WHERE game_id=:game_id AND user_id=:user_id")
-    db.session.execute(sql, {"user_id":user_id, "game_id":game_id})
-    db.session.commit()
-    own_bets_after = own_bets(user_id)
-    print(own_bets_first)
-    print(own_bets_after)
-    if own_bets_first == own_bets_after:
-        return False
-    else:
-        return True
+    sql = text("SELECT date FROM games WHERE id=:game_id")
+    date = db.session.execute(sql, {"game_id":game_id})
+
+    for row in date:
+        if row.date > datetime.now():
+            try:    
+                sql = text("DELETE FROM bets WHERE game_id=:game_id AND user_id=:user_id")
+                db.session.execute(sql, {"user_id":user_id, "game_id":game_id})
+                db.session.commit()
+                return True
+            except:
+                return False
+        else:
+            return False
 
 
 
