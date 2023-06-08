@@ -53,5 +53,18 @@ def mark_as_registered(game_id):
     db.session.execute(sql, {"game_id":game_id})
     db.session.commit()
 
+def delete_all():
+    sql = text("DELETE FROM scores")
+    db.session.execute(sql)
+    sql = text("DELETE FROM outcomes")
+    db.session.execute(sql)
+    sql = text("DELETE FROM bets")
+    db.session.execute(sql)
+    sql = text("DELETE FROM games")
+    db.session.execute(sql)
+    db.session.commit()
+    return
+
+
 
 

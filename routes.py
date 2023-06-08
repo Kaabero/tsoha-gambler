@@ -151,6 +151,21 @@ def add_outcome():
     if not allow:
         return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
+@app.route("/new_competition", methods=["GET", "POST"])
+def new_competitiom():
+    allow = False
+    if users.is_admin():
+        allow = True
+        if request.method == "GET":
+            return render_template("new_competition.html")
+        if request.method == "POST":
+            games.delete_all()
+            return redirect("/")
+    if not allow:
+        return render_template("error.html", message="Ei oikeutta nähdä sivua")
+
+
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
