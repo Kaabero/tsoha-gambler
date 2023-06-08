@@ -4,4 +4,5 @@ htmlcov
 .pytest_cache
 .env
 venv
+.pylintrc
 
