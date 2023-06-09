@@ -1,0 +1,22 @@
+<b>Lopputulokset:</b> <br>
+<br>
+{% if not outcomes %}
+Ei kirjattuja pelejä. <br>
+<br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
+{% else %}
+{% for outcome in outcomes %}
+Peli: {{ outcome.home_team }} vs. {{ outcome.visitor_team }} <br>
+{{outcome.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
+Lopputulos: {{ outcome.goals_home  }} - {{ outcome.goals_visitor  }} <br>
+<hr>
+{% endfor %}
+<br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
+{% endif %}

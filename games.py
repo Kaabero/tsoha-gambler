@@ -68,6 +68,12 @@ def delete_all():
     db.session.commit()
     return
 
+def get_outcomes():
+    sql = text("SELECT G.home_team, G.visitor_team, G.date, O.goals_home, O.goals_visitor FROM outcomes O, games G WHERE O.game_id=G.id ORDER BY G.date")
+    outcomes = db.session.execute(sql).fetchall()
+    db.session.commit()
+    return outcomes
+
 
 
 

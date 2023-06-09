@@ -28,6 +28,11 @@ def get_total_scores():
     list = scores.get_total_scores()
     return render_template("get_total_scores.html", scores=list)
 
+@app.route("/get_outcomes")
+def get_outcomes():
+    list = games.get_outcomes()
+    return render_template("get_outcomes.html", outcomes=list)
+
 @app.route("/get_bets")
 def get_bets():
     list = bets.get_bets()
@@ -39,6 +44,9 @@ def own_bets():
     list = bets.own_bets(user_id)
     return render_template("own_bets.html", bets=list)
 
+@app.route("/front_page", methods=["POST"])
+def front_page():
+    return redirect("/")
 
 @app.route("/new_game", methods=["POST"])
 def new_game():
@@ -52,10 +60,6 @@ def new_game():
         return render_template("error.html", message="Pelin lisäys ei onnistunut. Tarkista syötteet.")
 
 
-@app.route("/front_page", methods=["POST"])
-def front_page():
-    return redirect("/")
-
 
 @app.route("/new_outcome", methods=["POST"])
 def new_outcome():
@@ -64,9 +68,9 @@ def new_outcome():
     goals_visitor = request.form["goals_visitor"]
     if games.add_outcome(game_id, goals_home, goals_visitor):
         games.mark_as_registered(game_id)
-        return redirect("/")
+        return render_template("successfull_operation.html", message="Lopputulos lisätty onnistuneesti.")
     else: 
-        return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Tarkista syötteet.")
+        return render_template("error.html", message="Lopputuloksen lisäys ei onnistunut. Tarkista syötteet.")
 
 @app.route("/new_bet", methods=["POST"])
 def new_bet():
@@ -77,7 +81,7 @@ def new_bet():
     if bets.already_placed_bet(user_id, game_id):
         return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Sinulla on jo veikkaus tähän peliin.")
     if bets.bet(game_id, user_id, goals_home, goals_visitor):
-        return redirect("/")
+        return render_template("successfull_operation.html", message="Veikkaus lisätty onnistuneesti.")
     else: 
         return render_template("error.html", message="Veikkauksen lisäys ei onnistunut. Tarkista syötteet.")
 
@@ -86,7 +90,7 @@ def delete_bet():
     user_id = users.user_id()
     game_id = request.form["game_id"]
     if bets.delete_bet(user_id, game_id):
-        return redirect("/")
+        return render_template("successfull_operation.html", message="Veikkaus poistettu onnistuneesti.")
     else: 
         return render_template("error.html", message="Veikkauksen poisto ei onnistunut. Tarkista veikkaustunnus.")
 
@@ -127,7 +131,7 @@ def add_scores():
                         scores.add_one_point(game_id, user)
         
             scores.mark_as_scored(game_id)
-            return redirect("/")
+            return render_template("successfull_operation.html", message="Pisteytys onnistui.")
         else: 
             return render_template("error.html", message="Pisteytys ei onnistunut. Tarkista syötteet.")
     if not allow:
@@ -168,7 +172,7 @@ def new_competitiom():
             return render_template("new_competition.html")
         if request.method == "POST":
             games.delete_all()
-            return redirect("/")
+            return render_template("successfull_operation.html", message="Uusi kisa aloitettu.")
     if not allow:
         return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
