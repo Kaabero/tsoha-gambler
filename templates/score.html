@@ -1,3 +1,4 @@
+{% if session.user_id %}
 <b>Pisteytys</b> <br>
 <br>
 Lopputulos varsinaisella peliajalla: <br>
@@ -25,7 +26,7 @@ Vierasjoukkueen maalit: {{ game.goals_visitor }} <br>
 <form action="/add_scores" method="POST">
     Anna veikkaustunnus pelistä, jonka haluat pisteyttää: <input type="integer" name="game_id">
     <p>
-    <input type="submit" value="Lähetä">
+    <input type="submit" value="Pisteytä">
     </form>
 tai <br>
 <br>
@@ -33,5 +34,11 @@ tai <br>
     <input type="submit" value="Palaa etusivulle">
     </form>
 <br>
-
+{% endif %}
+{% else %}
+Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+<br>
+Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+<br>
+Palaa etusivulle <a href="/">tästä.</a>
 {% endif %}

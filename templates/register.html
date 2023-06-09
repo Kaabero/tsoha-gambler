@@ -1,3 +1,11 @@
+{% if session.user_id %}
+Jos haluat luoda uuden tunnuksen, kirjaudu ensin ulos <a href="/logout">tästä.</a> <br>
+<br>
+Palaa etusivulle <a href="/">tästä.</a>
+
+{% else %}
+<b>Luo uusi käyttäjätunnus</b><br>
+<br>
 <form action="/register" method="post">
     Tunnus: <input type="text" name="username">
     <p>
@@ -13,3 +21,4 @@ tai <br>
     <input type="submit" value="Palaa etusivulle">
     </form>
 <br>
+{% endif %}

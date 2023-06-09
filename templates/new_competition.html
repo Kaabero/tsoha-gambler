@@ -1,3 +1,4 @@
+{% if session.user_id %}
 <b>Uuden kisan aloittaminen poistaa kaikki aiemmat pelit ja veikkaustiedot. Haluatko jatkaa? </b> <br>
 <br>
 
@@ -10,4 +11,11 @@ tai <br>
     <input type="submit" value="Palaa etusivulle">
     </form>
 <br>
+{% else %}
+Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+<br>
+Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+<br>
+Palaa etusivulle <a href="/">tästä.</a>
+{% endif %}
   

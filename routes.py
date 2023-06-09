@@ -166,9 +166,6 @@ def new_competitiom():
     if not allow:
         return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
-
-
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":

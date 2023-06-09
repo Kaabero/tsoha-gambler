@@ -1,3 +1,4 @@
+{% if session.user_id %}
 <b>Lopputulokset:</b> <br>
 <br>
 {% if not outcomes %}
@@ -19,4 +20,11 @@ Lopputulos: {{ outcome.goals_home  }} - {{ outcome.goals_visitor  }} <br>
     <input type="submit" value="Palaa etusivulle">
     </form>
 <br>
+{% endif %}
+{% else %}
+Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+<br>
+Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+<br>
+Palaa etusivulle <a href="/">tästä.</a>
 {% endif %}
