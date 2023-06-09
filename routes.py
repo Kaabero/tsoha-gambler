@@ -48,30 +48,6 @@ def own_bets():
 def front_page():
     return redirect("/")
 
-@app.route("/new_game", methods=["POST"])
-def new_game():
-    home_team = request.form["home_team"]
-    visitor_team = request.form["visitor_team"]
-    day = request.form["date"]
-    time = request.form["time"]
-    if games.add_game(home_team, visitor_team, day, time):
-        return render_template("successfull_operation.html", message="Peli lisätty onnistuneesti.")
-    else:
-        return render_template("error.html", message="Pelin lisäys ei onnistunut. Tarkista syötteet.")
-
-
-
-@app.route("/new_outcome", methods=["POST"])
-def new_outcome():
-    game_id = request.form["game_id"]
-    goals_home = request.form["goals_home"]
-    goals_visitor = request.form["goals_visitor"]
-    if games.add_outcome(game_id, goals_home, goals_visitor):
-        games.mark_as_registered(game_id)
-        return render_template("successfull_operation.html", message="Lopputulos lisätty onnistuneesti.")
-    else: 
-        return render_template("error.html", message="Lopputuloksen lisäys ei onnistunut. Tarkista syötteet.")
-
 @app.route("/new_bet", methods=["POST"])
 def new_bet():
     game_id = request.form["game_id"]
@@ -93,7 +69,6 @@ def delete_bet():
         return render_template("successfull_operation.html", message="Veikkaus poistettu onnistuneesti.")
     else: 
         return render_template("error.html", message="Veikkauksen poisto ei onnistunut. Tarkista veikkaustunnus.")
-
 
 
 @app.route("/add_scores", methods=["POST"])
@@ -145,7 +120,15 @@ def add_game():
         if request.method == "GET":
             return render_template("add_game.html")
         if request.method == "POST":
-            return redirect("/")
+            home_team = request.form["home_team"]
+            visitor_team = request.form["visitor_team"]
+            day = request.form["date"]
+            time = request.form["time"]
+            if games.add_game(home_team, visitor_team, day, time):
+                return render_template("successfull_operation.html", message="Peli lisätty onnistuneesti.")
+            else:
+                return render_template("error.html", message="Pelin lisäys ei onnistunut. Tarkista syötteet.")
+            
     if not allow:
         return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
@@ -159,7 +142,14 @@ def add_outcome():
             list = games.get_closed_games()
             return render_template("add_outcome.html", fixtures=list)
         if request.method == "POST":
-            return redirect("/")
+            game_id = request.form["game_id"]
+            goals_home = request.form["goals_home"]
+            goals_visitor = request.form["goals_visitor"]
+            if games.add_outcome(game_id, goals_home, goals_visitor):
+                games.mark_as_registered(game_id)
+                return render_template("successfull_operation.html", message="Lopputulos lisätty onnistuneesti.")
+            else: 
+                return render_template("error.html", message="Lopputuloksen lisäys ei onnistunut. Tarkista syötteet.")
     if not allow:
         return render_template("error.html", message="Ei oikeutta nähdä sivua")
 

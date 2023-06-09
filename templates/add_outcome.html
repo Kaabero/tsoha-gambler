@@ -16,7 +16,7 @@ Aika: {{ fixture.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
 <hr>
 {% endfor %}
 
-<form action="/new_outcome" method="POST">
+<form action="/add_outcome" method="POST">
     Veikkaustunnus: <input type="integer" name="game_id">
     <p>
     Kotijoukkueen maalit: <input type="integer" name="goals_home">
