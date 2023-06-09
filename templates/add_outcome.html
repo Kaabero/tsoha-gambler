@@ -3,6 +3,10 @@
 {% if not fixtures %}
 Ei kirjattavia pelejä <br>
 <br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
 {% else %}
 {% for fixture in fixtures %}
 Veikkaustunnus: {{ fixture.id }} <br>
@@ -21,5 +25,10 @@ Aika: {{ fixture.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
     <p>
     <input type="submit" value="Lisää lopputulos">
     </form>
-
-{% endif %}
+    tai <br>
+    <br>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
+        </form>
+    <br>
+    {% endif %}

@@ -3,6 +3,10 @@
 {% if not bets %}
 Ei veikkauksia <br>
 <br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
 {% else %}
 {% for bet in bets %}
 Veikkaaja: {{ bet.username }} <br>
@@ -12,4 +16,10 @@ Veikkaus: {{ bet.goals_home  }} - {{ bet.goals_visitor }} <br>
 <br>
 <hr>
 {% endfor %}
+
+<br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
 {% endif %}

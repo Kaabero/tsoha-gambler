@@ -2,6 +2,11 @@
 <br>
 {% if not games %}
 Ei avoimia pelejä <br>
+<br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
 <hr>
 {% else %}
 <hr>
@@ -22,4 +27,10 @@ Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
     <p>
     <input type="submit" value="Lisää veikkaus">
     </form>
+tai <br>
+<br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
 {% endif %}

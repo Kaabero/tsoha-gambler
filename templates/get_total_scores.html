@@ -3,6 +3,10 @@
 {% if not scores %}
 Ei kirjattuja pisteitä <br>
 <br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
 {% else %}
 {% for score in scores %}
 Veikkaaja: {{ score.username }} <br>
@@ -13,4 +17,9 @@ Kokonaispisteet: {{ score.total_scores }} <br>
 {% endif %}
 <hr>
 {% endfor %}
+<br>
+<form action="/front_page" method="POST">
+    <input type="submit" value="Palaa etusivulle">
+    </form>
+<br>
 {% endif %}

@@ -46,8 +46,16 @@ def new_game():
     visitor_team = request.form["visitor_team"]
     day = request.form["date"]
     time = request.form["time"]
-    games.add_game(home_team, visitor_team, day, time)
+    if games.add_game(home_team, visitor_team, day, time):
+        return render_template("successfull_operation.html", message="Peli lisätty onnistuneesti.")
+    else:
+        return render_template("error.html", message="Pelin lisäys ei onnistunut. Tarkista syötteet.")
+
+
+@app.route("/front_page", methods=["POST"])
+def front_page():
     return redirect("/")
+
 
 @app.route("/new_outcome", methods=["POST"])
 def new_outcome():
