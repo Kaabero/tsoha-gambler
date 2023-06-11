@@ -3,12 +3,15 @@ from sqlalchemy.sql import text
 from datetime import datetime
 
 def add_game(home_team, visitor_team, day, time):
+
+    if home_team.lower() == visitor_team.lower():
+        return False
     
     splitted_date=day.split("-")
     splitted_time=time.split(":")
     
     date = datetime(int(splitted_date[0]), int(splitted_date[1]), int(splitted_date[2]), int(splitted_time[0]), int(splitted_time[1]))
-    print(date)
+
     if date < datetime.now():
         return False
     else:

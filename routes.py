@@ -124,6 +124,7 @@ def add_game():
             visitor_team = request.form["visitor_team"]
             day = request.form["date"]
             time = request.form["time"]
+
             if games.add_game(home_team, visitor_team, day, time):
                 return render_template("successfull_operation.html", message="Peli lisätty onnistuneesti.")
             else:
