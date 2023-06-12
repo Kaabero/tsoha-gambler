@@ -72,13 +72,13 @@ def add_three_points(game_id, user_id):
     sql = text ("INSERT INTO scores (game_id, user_id, scores) VALUES (:game_id, :user_id, :scores)")
     db.session.execute(sql, {"game_id":game_id, "user_id":user_id, "scores":3})
     db.session.commit()
-    return
+    
 
 def add_one_point(game_id, user_id):
     sql = text ("INSERT INTO scores (game_id, user_id, scores) VALUES (:game_id, :user_id, :scores)")
     db.session.execute(sql, {"game_id":game_id, "user_id":user_id, "scores":1})
     db.session.commit()
-    return
+    
 
 def get_scores():
     sql = text("SELECT G.home_team, G.visitor_team, G.date, S.scores, U.username, B.goals_home, B.goals_visitor, O.goals_home as outcome_home, O.goals_visitor as outcome_visitor FROM bets B, outcomes O, scores S, users U, games G WHERE S.user_id=U.id AND S.game_id=G.id AND O.game_id=G.id AND B.game_id=G.id AND B.user_id = U.id ORDER BY G.date")
@@ -90,6 +90,12 @@ def get_total_scores():
     sql = text("SELECT SUM(S.scores) as total_scores, U.username FROM scores S RIGHT JOIN users U ON S.user_id=U.id GROUP BY U.username")
     scores = db.session.execute(sql).fetchall()
     return scores
+
+def block_double_points(correct_bets, correct_winner, game_id):
+
+    for user in correct_winner:
+        if user not in correct_bets:
+            add_one_point(game_id, user)
 
 
 
