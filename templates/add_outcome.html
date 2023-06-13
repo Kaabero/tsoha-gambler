@@ -1,8 +1,13 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lopputulos</title>
+</head>
+<body>
 {% if session.user_id %}
-<b>Lopputuloksen voi lisätä seuraaviin peleihin: </b> <br>
-<br>
+<h3>Lopputuloksen voi lisätä seuraaviin peleihin: </h3>
 {% if not fixtures %}
-Ei kirjattavia pelejä <br>
+<p>Ei kirjattavia pelejä </p> <br>
 <br>
 <form action="/front_page" method="POST">
     <input type="submit" value="Palaa etusivulle">
@@ -18,6 +23,7 @@ Aika: {{ fixture.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
 {% endfor %}
 
 <form action="/add_outcome" method="POST">
+    <p>
     Veikkaustunnus: <input type="integer" name="game_id">
     <p>
     Kotijoukkueen maalit: <input type="integer" name="goals_home">
@@ -40,3 +46,4 @@ Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">täs
 <br>
 Palaa etusivulle <a href="/">tästä.</a>
 {% endif %}
+</body>

@@ -1,10 +1,15 @@
-<b>Avoimet pelit: </b> <br>
-<br>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Etusivu</title>
+</head>
+<body>
+<h3>Avoimet pelit: </h3> 
 {% if not games %}
-Ei avoimia pelejä <br>
+<p>Ei avoimia pelejä </p> <br>
 <hr>
 {% else %}
-
+<p>
 {% for game in games %}
 Veikkaustunnus: {{ game.id }} <br>
 Kotijoukkue: {{ game.home_team }} <br>
@@ -14,8 +19,8 @@ Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
 {% endfor %}
 {% endif %}
 {% if session.user_id %}
-Olet kirjautunut sisään. <br>
-<br>
+Olet kirjautunut sisään. </p>
+
 <a href="/bet">Lisää veikkaus</a> <br>
 <a href="/get_own_bets">Katso omia avoimia veikkauksia tai poista oma veikkaus</a> <br>
 <a href="/get_bets">Tarkastele tulevien pelien veikkauksia</a> <br>
@@ -33,3 +38,5 @@ Ylläpitäjän toiminnot: <br>
 {% else %}
 <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
 {% endif %}
+
+</body>
