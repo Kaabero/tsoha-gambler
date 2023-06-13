@@ -53,17 +53,17 @@ def add_outcome(game_id, goals_home, goals_visitor):
 
 def get_open_games():
     sql = text(
-        "SELECT * FROM games WHERE date BETWEEN NOW() AND date ORDER BY date")
+        """SELECT id, home_team, visitor_team, date, outcome_added 
+           FROM games WHERE date BETWEEN NOW() AND date ORDER BY date""")
     games = db.session.execute(sql).fetchall()
-    db.session.commit()
     return games
 
 
 def get_closed_games():
     sql = text(
-        "SELECT * FROM games WHERE date < NOW() AND outcome_added is null ORDER BY date")
+        """SELECT id, home_team, visitor_team, date, outcome_added 
+           FROM games WHERE date < NOW() AND outcome_added is null ORDER BY date""")
     games = db.session.execute(sql).fetchall()
-    db.session.commit()
     return games
 
 
@@ -94,5 +94,4 @@ def get_outcomes():
     sql = text("""SELECT G.home_team, G.visitor_team, G.date, O.goals_home, O.goals_visitor
                   FROM outcomes O, games G WHERE O.game_id=G.id ORDER BY G.date""")
     outcomes = db.session.execute(sql).fetchall()
-    db.session.commit()
     return outcomes

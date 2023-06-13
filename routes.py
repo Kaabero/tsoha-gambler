@@ -60,6 +60,10 @@ def front_page():
 
 @app.route("/new_bet", methods=["POST"])
 def new_bet():
+    if not request.form["game_id"]:
+        return render_template(
+            "error.html",
+            message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
     game_id = request.form["game_id"]
     goals_home = request.form["goals_home"]
     goals_visitor = request.form["goals_visitor"]
@@ -80,6 +84,10 @@ def new_bet():
 @app.route("/delete_bet", methods=["POST"])
 def delete_bet():
     user_id = users.user_id()
+    if not request.form["game_id"]:
+        return render_template(
+            "error.html",
+            message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
     game_id = request.form["game_id"]
     if bets.delete_bet(user_id, game_id):
         return render_template(
@@ -94,6 +102,10 @@ def delete_bet():
 @app.route("/add_scores", methods=["POST"])
 def add_scores():
     if users.is_admin():
+        if not request.form["game_id"]:
+            return render_template(
+            "error.html",
+            message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
         game_id = request.form["game_id"]
         if scores.is_scorable(game_id):
             outcome = games.get_outcome(game_id)
@@ -157,6 +169,10 @@ def add_outcome():
             fixtures = games.get_closed_games()
             return render_template("add_outcome.html", fixtures=fixtures)
         if request.method == "POST":
+            if not request.form["game_id"]:
+                return render_template(
+                "error.html",
+                message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
             game_id = request.form["game_id"]
             goals_home = request.form["goals_home"]
             goals_visitor = request.form["goals_visitor"]
