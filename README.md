@@ -15,7 +15,7 @@ Sovelluksen ominaisuuksia ovat:
 * Käyttäjät ja ylläpitäjät voivat tarkastella pistetilannetta.
 * Käyttäjä voi poistaa lisäämänsä veikkauksen ennen pelin alkua. 
 
-## Versio 13.6.2023
+## Versio 18.6.2023
 
 * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 * Sovellukseen voi lisätä veikkauskohteita tulevaisuuteen (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
