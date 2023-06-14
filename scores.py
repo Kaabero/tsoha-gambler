@@ -1,6 +1,7 @@
 from sqlalchemy.sql import text
 from db import db
 
+
 def add_scores(game_id, goals_home, goals_visitor):
 
     correct_bets = get_correct_bets(game_id, goals_home, goals_visitor)

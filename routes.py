@@ -18,12 +18,6 @@ def bet():
     return render_template("bet.html", games=open_games)
 
 
-@app.route("/score")
-def score():
-    scorable_games = scores.scorable_games()
-    return render_template("score.html", games=scorable_games)
-
-
 @app.route("/get_scores")
 def get_scores():
     all_scores = scores.get_scores()
