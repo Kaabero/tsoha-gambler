@@ -101,50 +101,6 @@ def delete_bet():
         "error.html",
         message="Veikkauksen poisto ei onnistunut. Tarkista veikkaustunnus.")
 
-
-@app.route("/add_scores", methods=["POST"])
-def add_scores():
-    if users.is_admin():
-        if not request.form["game_id"]:
-            return render_template(
-                "error.html",
-                message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
-        game_id = request.form["game_id"]
-        if scores.is_scorable(game_id):
-            outcome = games.get_outcome(game_id)
-            goals_home = outcome[0]
-            goals_visitor = outcome[1]
-
-            correct_bets = scores.correct_bets(
-                game_id, goals_home, goals_visitor)
-            for user in correct_bets:
-                scores.add_three_points(game_id, user)
-
-            if goals_home > goals_visitor:
-                correct_home_wins = scores.home_wins(game_id)
-                scores.block_double_points(
-                    correct_bets, correct_home_wins, game_id)
-
-            elif goals_home < goals_visitor:
-                correct_visitor_wins = scores.visitor_wins(game_id)
-                scores.block_double_points(
-                    correct_bets, correct_visitor_wins, game_id)
-
-            else:
-                correct_draw = scores.draw(game_id)
-                scores.block_double_points(correct_bets, correct_draw, game_id)
-
-            scores.mark_as_scored(game_id)
-            return render_template(
-                "successfull_operation.html",
-                message="Pisteytys onnistui.")
-
-        return render_template(
-            "error.html",
-            message="Pisteytys ei onnistunut. Tarkista syötteet.")
-    return render_template("error.html", message="Ei oikeutta nähdä sivua")
-
-
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():
     if users.is_admin():
@@ -184,9 +140,10 @@ def add_outcome():
             goals_visitor = request.form["goals_visitor"]
             if games.add_outcome(game_id, goals_home, goals_visitor):
                 games.mark_as_registered(game_id)
+                scores.add_scores(game_id, goals_home, goals_visitor)
                 return render_template(
                     "successfull_operation.html",
-                    message="Lopputulos lisätty onnistuneesti.")
+                    message="Lopputulos lisätty ja peli pisteytetty onnistuneesti.")
             return render_template(
                 "error.html",
                 message="Lopputuloksen lisäys ei onnistunut. Tarkista syötteet.")

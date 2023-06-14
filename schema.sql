@@ -6,7 +6,7 @@ CREATE TABLE scores (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games, us
 
 CREATE TABLE bets (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games, user_id INTEGER REFERENCES users, goals_home INTEGER, goals_visitor INTEGER);
 
-CREATE TABLE outcomes (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games UNIQUE, goals_home INTEGER, goals_visitor INTEGER, scored INTEGER);
+CREATE TABLE outcomes (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games UNIQUE, goals_home INTEGER, goals_visitor INTEGER);
 
 
 

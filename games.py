@@ -37,13 +37,13 @@ def add_outcome(game_id, goals_home, goals_visitor):
         if row.date < datetime.now():
             try:
                 sql = text(
-                    """INSERT INTO outcomes (game_id, goals_home, goals_visitor, scored) 
-                       VALUES (:game_id, :goals_home, :goals_visitor, :scored)""")
+                    """INSERT INTO outcomes (game_id, goals_home, goals_visitor) 
+                       VALUES (:game_id, :goals_home, :goals_visitor)""")
                 db.session.execute(sql,
                                    {"game_id": game_id,
                                     "goals_home": goals_home,
-                                    "goals_visitor": goals_visitor,
-                                    "scored": 0})
+                                    "goals_visitor": goals_visitor
+                                    })
                 db.session.commit()
                 return True
             except BaseException:

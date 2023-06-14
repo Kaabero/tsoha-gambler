@@ -1,31 +1,26 @@
 from sqlalchemy.sql import text
 from db import db
 
-def scorable_games():
-    sql = text("SELECT game_id, goals_home, goals_visitor, scored FROM outcomes WHERE scored=0")
-    games = db.session.execute(sql).fetchall()
-    return games
+def add_scores(game_id, goals_home, goals_visitor):
+
+    correct_bets = get_correct_bets(game_id, goals_home, goals_visitor)
+    for user in correct_bets:
+        add_three_points(game_id, user)
+
+    if goals_home > goals_visitor:
+        correct_home_wins = home_wins(game_id)
+        block_double_points(correct_bets, correct_home_wins, game_id)
+
+    elif goals_home < goals_visitor:
+        correct_visitor_wins = visitor_wins(game_id)
+        block_double_points(correct_bets, correct_visitor_wins, game_id)
+
+    else:
+        correct_draw = draw(game_id)
+        block_double_points(correct_bets, correct_draw, game_id)
 
 
-def is_scorable(game_id):
-    try:
-        sql = text(
-            "SELECT game_id FROM outcomes WHERE scored=0 AND game_id=:game_id")
-        game = db.session.execute(sql, {"game_id": game_id}).fetchone()
-        if game:
-            return True
-        return False
-    except BaseException:
-        return False
-
-
-def mark_as_scored(game_id):
-    sql = text("UPDATE outcomes SET scored=1 WHERE game_id=:game_id")
-    db.session.execute(sql, {"game_id": game_id})
-    db.session.commit()
-
-
-def correct_bets(game_id, goals_home, goals_visitor):
+def get_correct_bets(game_id, goals_home, goals_visitor):
     sql = text(
         """SELECT user_id FROM bets
            WHERE game_id=:game_id
