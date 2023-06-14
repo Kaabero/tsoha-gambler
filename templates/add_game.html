@@ -1,27 +1,35 @@
-
-{% if session.user_id %}
-<form action="/add_game" method="POST">
-    Kotijoukkue: <input type="text" name="home_team">
-    <p>
-    Vierasjoukkue: <input type="text" name="visitor_team">
-    <p>
-    Päivä: <input type="date" name="date">
-    <p>
-    Aika: <input type="time" name="time">    
-    <p>
-    <input type="submit" value="Lisää peli">
-    <p>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lisää peli</title>
+</head>
+<body>
+    {% if session.user_id %}
+    <h3>Lisää uusi peli: </h3>
+    <form action="/add_game" method="POST">
+        <p>
+        Kotijoukkue: <input type="text" name="home_team">
+        <p>
+        Vierasjoukkue: <input type="text" name="visitor_team">
+        <p>
+        Päivä: <input type="date" name="date">
+        <p>
+        Aika: <input type="time" name="time">    
+        <p>
+        <input type="submit" value="Lisää peli">
+        <p>
     </form>
-tai <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+    tai <br>
+    <br>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% else %}
-Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
-<br>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
-<br>
-Palaa etusivulle <a href="/">tästä.</a>
-{% endif %}
+    <br>
+    {% else %}
+    Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+    <br>
+    Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+    <br>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% endif %}
+</body>

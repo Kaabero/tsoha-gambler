@@ -1,30 +1,35 @@
-{% if session.user_id %}
-<b>Lopputulokset:</b> <br>
-<br>
-{% if not outcomes %}
-Ei kirjattuja pelejä. <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lopputulokset</title>
+</head>
+<body>
+    {% if session.user_id %}
+    <h3>Lopputulokset:</h3>
+    {% if not outcomes %}
+    <p>Ei kirjattuja pelejä. </p>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% else %}
-{% for outcome in outcomes %}
-Peli: {{ outcome.home_team }} vs. {{ outcome.visitor_team }} <br>
-{{outcome.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
-Lopputulos: {{ outcome.goals_home  }} - {{ outcome.goals_visitor  }} <br>
-<hr>
-{% endfor %}
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+    <br>
+    {% else %}
+    {% for outcome in outcomes %}
+    Peli: {{ outcome.home_team }} vs. {{ outcome.visitor_team }} <br>
+    {{outcome.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
+    Lopputulos: {{ outcome.goals_home  }} - {{ outcome.goals_visitor  }} <br>
+    <hr>
+    {% endfor %}
+    <br>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% endif %}
-{% else %}
-Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
-<br>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
-<br>
-Palaa etusivulle <a href="/">tästä.</a>
-{% endif %}
+    <br>
+    {% endif %}
+    {% else %}
+    Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+    <br>
+    Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+    <br>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% endif %}
+</body>

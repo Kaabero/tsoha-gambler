@@ -1,44 +1,47 @@
-{% if session.user_id %}
-<b>Avoimet pelit:</b> <br>
-<br>
-{% if not games %}
-Ei avoimia pelejä <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lisää veikkaus</title>
+</head>
+<body>
+    {% if session.user_id %}
+    <h3>Avoimet pelit:</h3> 
+    {% if not games %}
+    <p>Ei avoimia pelejä. </p>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-<hr>
-{% else %}
-<hr>
-{% for game in games %}
-Veikkaustunnus: {{ game.id }} <br>
-Kotijoukkue: {{ game.home_team }} <br>
-Vierasjoukkue: {{ game.visitor_team }} <br>
-Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
-<hr>
-{% endfor %}
+    <hr>
+    {% else %}
+    {% for game in games %}
+    Veikkaustunnus: {{ game.id }} <br>
+    Kotijoukkue: {{ game.home_team }} <br>
+    Vierasjoukkue: {{ game.visitor_team }} <br>
+    Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
+    <hr>
+    {% endfor %}
 
-<form action="/new_bet" method="POST">
-    Veikkaustunnus: <input type="integer" name="game_id">
-    <p>
-    Kotijoukkueen maalit: <input type="integer" name="goals_home">
-    <p>
-    Vierasjoukkueen maalit: <input type="integer" name="goals_visitor"> 
-    <p>
-    <input type="submit" value="Lisää veikkaus">
+    <form action="/new_bet" method="POST">
+        <p>
+        Veikkaustunnus: <input type="integer" name="game_id">
+        <p>
+        Kotijoukkueen maalit: <input type="integer" name="goals_home">
+        <p>
+        Vierasjoukkueen maalit: <input type="integer" name="goals_visitor"> 
+        <p>
+        <input type="submit" value="Lisää veikkaus">
     </form>
-tai <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+    tai <br>
+    <br>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% endif %}
-{% else %}
-Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
-<br>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
-<br>
-Palaa etusivulle <a href="/">tästä.</a>
-{% endif %}
+    {% endif %}
+    {% else %}
+    Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+    <br>
+    Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+    <br>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% endif %}
+</body>

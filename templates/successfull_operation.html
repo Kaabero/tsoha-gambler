@@ -1,6 +1,12 @@
-{{ message }} <br>
-<br>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suoritus</title>
+</head>
+<body>
+    <p> {{ message }} </p>
 
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
+</body>

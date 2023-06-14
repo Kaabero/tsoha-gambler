@@ -1,43 +1,48 @@
-{% if session.user_id %}
-<b>Omat avoimet veikkaukset:</b> <br>
-<br>
-{% if not bets %}
-Ei avoimia veikkauksia <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
-    </form>
-<br>
-<hr>
-{% else %}
-<hr>
-{% for bet in bets %}
-Veikkaustunnus: {{ bet.game_id }} <br>
-Kotijoukkue: {{ bet.home_team }} <br>
-Vierasjoukkue: {{ bet.visitor_team }} <br>
-Aika: {{ bet.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
-Veikkaus: {{ bet.goals_home  }} - {{ bet.goals_visitor }} <br>
-<hr>
-{% endfor %}
-
-<form action="/delete_bet" method="POST">
-    Poista veikkaus: <br>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Omat veikkaukset</title>
+</head>
+<body>
+    {% if session.user_id %}
+    <h3>Omat avoimet veikkaukset:</h3>
+    {% if not bets %}
+    <p>Ei avoimia veikkauksia. </p>
     <br>
-    Veikkaustunnus: <input type="integer" name="game_id">
-    <p>
-    <input type="submit" value="Poista veikkaus">
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-tai <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+
+    {% else %}
+    <hr>
+    {% for bet in bets %}
+    Veikkaustunnus: {{ bet.game_id }} <br>
+    Kotijoukkue: {{ bet.home_team }} <br>
+    Vierasjoukkue: {{ bet.visitor_team }} <br>
+    Aika: {{ bet.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
+    Veikkaus: {{ bet.goals_home  }} - {{ bet.goals_visitor }} <br>
+    <hr>
+    {% endfor %}
+
+    <form action="/delete_bet" method="POST">
+        Poista veikkaus:
+        <p>
+        Veikkaustunnus: <input type="integer" name="game_id">
+        <p>
+        <input type="submit" value="Poista veikkaus">
     </form>
-<br>
-{% endif %}
-{% else %}
-Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
-<br>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
-<br>
-Palaa etusivulle <a href="/">tästä.</a>
-{% endif %}
+    tai <br>
+    <br>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
+    </form>
+    
+    {% endif %}
+    {% else %}
+    Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+    <br>
+    Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+    <br>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% endif %}
+</body>

@@ -7,26 +7,26 @@ def add_game(home_team, visitor_team, day, time):
 
     if home_team.lower() == visitor_team.lower():
         return False
+    if home_team and visitor_team and day and time:
+        splitted_date = day.split("-")
+        splitted_time = time.split(":")
 
-    splitted_date = day.split("-")
-    splitted_time = time.split(":")
+        date = datetime(int(splitted_date[0]), int(splitted_date[1]), int(
+            splitted_date[2]), int(splitted_time[0]), int(splitted_time[1]))
 
-    date = datetime(int(splitted_date[0]), int(splitted_date[1]), int(
-        splitted_date[2]), int(splitted_time[0]), int(splitted_time[1]))
+        if date < datetime.now():
+            return False
 
-    if date < datetime.now():
-        return False
-
-    sql = text(
-        """INSERT INTO games (home_team, visitor_team, date) 
-           VALUES (:home_team, :visitor_team, :date)""")
-    db.session.execute(sql,
-                        {"home_team": home_team,
-                        "visitor_team": visitor_team,
-                        "date": date})
-    db.session.commit()
-    return True
-
+        sql = text(
+            """INSERT INTO games (home_team, visitor_team, date) 
+               VALUES (:home_team, :visitor_team, :date)""")
+        db.session.execute(sql,
+                           {"home_team": home_team,
+                           "visitor_team": visitor_team,
+                           "date": date})
+        db.session.commit()
+        return True
+    return False
 
 def add_outcome(game_id, goals_home, goals_visitor):
 

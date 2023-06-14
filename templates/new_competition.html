@@ -1,21 +1,23 @@
-{% if session.user_id %}
-<b>Uuden kisan aloittaminen poistaa kaikki aiemmat pelit ja veikkaustiedot. Haluatko jatkaa? </b> <br>
-<br>
-
-<form action="/new_competition" method="POST">
-    <input type="submit" value="Aloita uusi kisa">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Uusi kisa</title>
+</head>
+<body>
+    {% if session.user_id %}
+    <b>Uuden kisan aloittaminen poistaa kaikki aiemmat pelit ja veikkaustiedot. Haluatko jatkaa? </b> <br>
+    <br>
+    <form action="/new_competition" method="POST">
+        <input type="submit" value="Aloita uusi kisa">
     </form>
-tai <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
-    </form>
-<br>
-{% else %}
-Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
-<br>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
-<br>
-Palaa etusivulle <a href="/">tästä.</a>
-{% endif %}
+    <hr>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% else %}
+    Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+    <br>
+    Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+    <br>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% endif %}
+</body>
   

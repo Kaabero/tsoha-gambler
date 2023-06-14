@@ -1,39 +1,43 @@
-{% if session.user_id %}
-<b>Pelikohtaiset veikkaukset ja pisteet</b> <br>
-<br>
-Lopputulos varsinaisella peliajalla: <br>
-<br>
-Oikea tulosveto = 3 pistettä <br>
-Oikea pitkäveto = 1 piste
-
-<hr>
-{% if not scores %}
-Ei veikkauksia tai kirjattuja pisteitä <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pisteytys</title>
+</head>
+<body>
+    {% if session.user_id %}
+    <h3>Pelikohtaiset veikkaukset ja pisteet</h3>
+    <p>
+    Lopputulos varsinaisella peliajalla:
+    <p>
+    Oikea tulosveto = 3 pistettä <br>
+    Oikea pitkäveto = 1 piste
+    </p>
+    <hr>
+    {% if not scores %}
+    <p>Ei veikkauksia tai kirjattuja pisteitä. </p>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% else %}
-{% for score in scores %}
-Veikkaaja: {{ score.username }} <br>
-Peli: {{ score.home_team }} vs. {{ score.visitor_team }} <br>
-{{score.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
-Lopputulos: {{ score.outcome_home  }} - {{ score.outcome_visitor  }} <br>
-Veikkaus: {{ score.goals_home  }} - {{ score.goals_visitor }} <br>
-Pisteet: {{ score.scores }} <br>
-<hr>
-{% endfor %}
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+    {% else %}
+    {% for score in scores %}
+    Veikkaaja: {{ score.username }} <br>
+    Peli: {{ score.home_team }} vs. {{ score.visitor_team }} <br>
+    {{score.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
+    Lopputulos: {{ score.outcome_home  }} - {{ score.outcome_visitor  }} <br>
+    Veikkaus: {{ score.goals_home  }} - {{ score.goals_visitor }} <br>
+    Pisteet: {{ score.scores }} <br>
+    <hr>
+    {% endfor %}
+    <br>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% endif %}
-{% else %}
-Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
-<br>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
-<br>
-Palaa etusivulle <a href="/">tästä.</a>
-{% endif %}
+    {% endif %}
+    {% else %}
+    Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+    <br>
+    Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+    <br>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% endif %}
+</body>

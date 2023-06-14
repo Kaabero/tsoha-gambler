@@ -4,39 +4,39 @@
     <title>Etusivu</title>
 </head>
 <body>
-<h3>Avoimet pelit: </h3> 
-{% if not games %}
-<p>Ei avoimia pelejä </p> <br>
-<hr>
-{% else %}
-<p>
-{% for game in games %}
-Veikkaustunnus: {{ game.id }} <br>
-Kotijoukkue: {{ game.home_team }} <br>
-Vierasjoukkue: {{ game.visitor_team }} <br>
-Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
-<hr>
-{% endfor %}
-{% endif %}
-{% if session.user_id %}
-Olet kirjautunut sisään. </p>
-
-<a href="/bet">Lisää veikkaus</a> <br>
-<a href="/get_own_bets">Katso omia avoimia veikkauksia tai poista oma veikkaus</a> <br>
-<a href="/get_bets">Tarkastele tulevien pelien veikkauksia</a> <br>
-<a href="/get_outcomes">Katso pelien lopputulokset </a> <br>
-<a href="/get_scores">Katso pelien pisteytys </a> <br>
-<a href="/get_total_scores">Katso kokonaispisteet</a> <br>
-<a href="/logout">Kirjaudu ulos</a>
-<hr>
-Ylläpitäjän toiminnot: <br>
-<br>
-<a href="/add_game">Lisää peli </a> <br>
-<a href="/add_outcome">Lisää lopputulos </a> <br> 
-<a href="/score">Pisteytä </a> <br> 
-<a href="/new_competition">Aloita uusi kisa </a>
-{% else %}
-<a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
-{% endif %}
-
+    <h3>Avoimet pelit: </h3> 
+    {% if not games %}
+    Ei avoimia pelejä <br>
+    <hr>
+    {% else %}
+    <p>
+        {% for game in games %}
+        Veikkaustunnus: {{ game.id }} <br>
+        Kotijoukkue: {{ game.home_team }} <br>
+        Vierasjoukkue: {{ game.visitor_team }} <br>
+        Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
+    </p>
+    <hr>
+    {% endfor %}
+    {% endif %}
+    {% if session.user_id %}
+    Olet kirjautunut sisään. <br>
+    <br>
+    <a href="/bet">Lisää veikkaus</a> <br>
+    <a href="/get_own_bets">Katso omia avoimia veikkauksia tai poista oma veikkaus</a> <br>
+    <a href="/get_bets">Tarkastele tulevien pelien veikkauksia</a> <br>
+    <a href="/get_outcomes">Katso pelien lopputulokset </a> <br>
+    <a href="/get_scores">Katso pelien pisteytys </a> <br>
+    <a href="/get_total_scores">Katso kokonaispisteet</a> <br>
+    <a href="/logout">Kirjaudu ulos</a>
+    <hr>
+    Ylläpitäjän toiminnot: <br>
+    <br>
+    <a href="/add_game">Lisää peli </a> <br>
+    <a href="/add_outcome">Lisää lopputulos </a> <br> 
+    <a href="/score">Pisteytä </a> <br> 
+    <a href="/new_competition">Aloita uusi kisa </a>
+    {% else %}
+    <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
+    {% endif %}
 </body>

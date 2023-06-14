@@ -39,7 +39,7 @@ def too_short_password(password):
 
 
 def too_short_username(username):
-    return len(username)
+    return len(username) < 2
 
 def user_id():
     return session.get("user_id", 0)

@@ -1,33 +1,35 @@
-{% if session.user_id %}
-<b>Veikkaukset:</b> <br>
-<br>
-{% if not bets %}
-Ei veikkauksia <br>
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hae veikkaukset</title>
+</head>
+<body>
+    {% if session.user_id %}
+    <h3>Veikkaukset:</h3> 
+    {% if not bets %}
+    <p>Ei veikkauksia. </p>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% else %}
-{% for bet in bets %}
-Veikkaaja: {{ bet.username }} <br>
-Peli: {{ bet.home_team }} vs. {{ bet.visitor_team }} <br>
-{{bet.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
-Veikkaus: {{ bet.goals_home  }} - {{ bet.goals_visitor }} <br>
-<br>
-<hr>
-{% endfor %}
-
-<br>
-<form action="/front_page" method="POST">
-    <input type="submit" value="Palaa etusivulle">
+    {% else %}
+    {% for bet in bets %}
+    Veikkaaja: {{ bet.username }} <br>
+    Peli: {{ bet.home_team }} vs. {{ bet.visitor_team }} <br>
+    {{bet.date.strftime("%d.%m.%Y kello %H:%M")}} <br>
+    Veikkaus: {{ bet.goals_home  }} - {{ bet.goals_visitor }} <br>
+    <hr>
+    {% endfor %}
+    <br>
+    <form action="/front_page" method="POST">
+        <input type="submit" value="Palaa etusivulle">
     </form>
-<br>
-{% endif %}
-{% else %}
-Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
-<br>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
-<br>
-Palaa etusivulle <a href="/">tästä.</a>
-{% endif %}
+    <br>
+    {% endif %}
+    {% else %}
+    Tarkastele sivua kirjautumalla sisään <a href="/login">tästä.</a>  <br>
+    <br>
+    Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä.</a> <br>
+    <br>
+    Palaa etusivulle <a href="/">tästä.</a>
+    {% endif %}
+</body>

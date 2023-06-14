@@ -23,6 +23,7 @@ def score():
     scorable_games = scores.scorable_games()
     return render_template("score.html", games=scorable_games)
 
+
 @app.route("/get_scores")
 def get_scores():
     all_scores = scores.get_scores()
@@ -58,6 +59,7 @@ def get_own_bets():
 def front_page():
     return redirect("/")
 
+
 @app.route("/new_bet", methods=["POST"])
 def new_bet():
     if not request.form["game_id"]:
@@ -80,6 +82,7 @@ def new_bet():
     return render_template(
         "error.html",
         message="Veikkauksen lisäys ei onnistunut. Tarkista syötteet.")
+
 
 @app.route("/delete_bet", methods=["POST"])
 def delete_bet():
@@ -104,8 +107,8 @@ def add_scores():
     if users.is_admin():
         if not request.form["game_id"]:
             return render_template(
-            "error.html",
-            message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
+                "error.html",
+                message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
         game_id = request.form["game_id"]
         if scores.is_scorable(game_id):
             outcome = games.get_outcome(game_id)
@@ -119,11 +122,13 @@ def add_scores():
 
             if goals_home > goals_visitor:
                 correct_home_wins = scores.home_wins(game_id)
-                scores.block_double_points(correct_bets, correct_home_wins, game_id)
+                scores.block_double_points(
+                    correct_bets, correct_home_wins, game_id)
 
             elif goals_home < goals_visitor:
                 correct_visitor_wins = scores.visitor_wins(game_id)
-                scores.block_double_points(correct_bets, correct_visitor_wins, game_id)
+                scores.block_double_points(
+                    correct_bets, correct_visitor_wins, game_id)
 
             else:
                 correct_draw = scores.draw(game_id)
@@ -157,7 +162,8 @@ def add_game():
                     message="Peli lisätty onnistuneesti.")
 
             return render_template(
-                "error.html", message="Pelin lisäys ei onnistunut. Tarkista syötteet.")
+                "error.html",
+                message="Pelin lisäys ei onnistunut. Tarkista syötteet.")
 
     return render_template("error.html", message="Ei oikeutta nähdä sivua")
 
@@ -171,8 +177,8 @@ def add_outcome():
         if request.method == "POST":
             if not request.form["game_id"]:
                 return render_template(
-                "error.html",
-                message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
+                    "error.html",
+                    message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
             game_id = request.form["game_id"]
             goals_home = request.form["goals_home"]
             goals_visitor = request.form["goals_visitor"]
@@ -232,16 +238,16 @@ def register():
         password2 = request.form["password2"]
         if password1 != password2:
             return render_template("error.html", message="Salasanat eroavat")
-        if users.too_short_password(password1):
+        if users.too_short_password(
+                password1) or users.too_short_username(username):
             return render_template(
                 "error.html",
-                message="Salasanan minimipituus on 8 merkkiä.")
-        if users.too_short_username(username):
-            return render_template(
-                "error.html",
-                message="Käyttäjätunnuksen minimipituus on 2 merkkiä.")
+                message="""Syötä käyttäjätunnus, jonka pituus on vähintään 2 merkkiä
+                           ja salasana, jonka pituus on vähintään 8 merkkiä.""")
         if users.register(username, password1):
             return redirect("/")
         return render_template(
             "error.html",
             message="Rekisteröinti ei onnistunut. Käyttäjätunnus on jo käytössä.")
+    return render_template(
+        "error.html", message="Odottamaton virhe.")
