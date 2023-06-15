@@ -17,7 +17,8 @@
         Aika: <input type="time" name="time">    
         <p>
         <input type="submit" value="Lisää peli">
-        <p>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        </p>
     </form>
     tai <br>
     <br>

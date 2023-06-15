@@ -30,6 +30,7 @@
         Veikkaustunnus: <input type="integer" name="game_id">
         <p>
         <input type="submit" value="Poista veikkaus">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
     tai <br>
     <br>

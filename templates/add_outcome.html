@@ -29,6 +29,7 @@
         Vierasjoukkueen maalit: <input type="integer" name="goals_visitor"> 
         <p>
         <input type="submit" value="Lisää lopputulos ja pisteytä">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
     tai <br>
     <br>
