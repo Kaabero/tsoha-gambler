@@ -35,11 +35,11 @@ def register(username, password):
 
 
 def too_short_password(password):
-    return len(password) < 8
+    return len(password) < 8 or len(password) > 30
 
 
 def too_short_username(username):
-    return len(username) < 2
+    return 31 > len(username) < 2 or len(username) > 30
 
 def user_id():
     return session.get("user_id", 0)

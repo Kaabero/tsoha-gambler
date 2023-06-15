@@ -193,8 +193,8 @@ def register():
                 password1) or users.too_short_username(username):
             return render_template(
                 "error.html",
-                message="""Syötä käyttäjätunnus, jonka pituus on vähintään 2 merkkiä
-                           ja salasana, jonka pituus on vähintään 8 merkkiä.""")
+                message="""Syötä käyttäjätunnus, jonka pituus on 2-30 merkkiä
+                           ja salasana, jonka pituus on 8-30 merkkiä.""")
         if users.register(username, password1):
             return redirect("/")
         return render_template(
