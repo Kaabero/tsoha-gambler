@@ -29,8 +29,6 @@ Sovelluksen ominaisuuksia ovat:
 * Käyttäjä voi katsoa kokonaispistetilanteen. 
 * Käyttäjä voi poistaa oman veikkauksensa tuleville peleille.
 * Käyttäjä voi aloittaa uuden kisan (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
-* Kesken: ulkoasu
-* Kesken: tekninen tarkastusiista
 
 
 ## Ohjeet testaamiseen
