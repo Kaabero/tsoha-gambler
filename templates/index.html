@@ -6,16 +6,14 @@
 <body>
     <h3>Avoimet pelit: </h3> 
     {% if not games %}
-    Ei avoimia pelejä <br>
+    <p>Ei avoimia pelejä </p>
     <hr>
     {% else %}
-    <p>
-        {% for game in games %}
-        Veikkaustunnus: {{ game.id }} <br>
-        Kotijoukkue: {{ game.home_team }} <br>
-        Vierasjoukkue: {{ game.visitor_team }} <br>
-        Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
-    </p>
+    {% for game in games %}
+    Veikkaustunnus: {{ game.id }} <br>
+    Kotijoukkue: {{ game.home_team }} <br>
+    Vierasjoukkue: {{ game.visitor_team }} <br>
+    Aika: {{ game.date.strftime("%d.%m.%Y kello %H:%M") }} <br>
     <hr>
     {% endfor %}
     {% endif %}
