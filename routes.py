@@ -99,7 +99,8 @@ def delete_bet():
 
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():
-    if users.is_admin():
+    user_id = users.user_id()
+    if users.is_admin(user_id):
         if request.method == "GET":
             return render_template("add_game.html")
         if request.method == "POST":
@@ -123,7 +124,8 @@ def add_game():
 
 @app.route("/add_outcome", methods=["GET", "POST"])
 def add_outcome():
-    if users.is_admin():
+    user_id = users.user_id()
+    if users.is_admin(user_id):
         if request.method == "GET":
             fixtures = games.get_closed_games()
             return render_template("add_outcome.html", fixtures=fixtures)
@@ -150,7 +152,8 @@ def add_outcome():
 
 @app.route("/new_competition", methods=["GET", "POST"])
 def new_competitiom():
-    if users.is_admin():
+    user_id = users.user_id()
+    if users.is_admin(user_id):
         if request.method == "GET":
             return render_template("new_competition.html")
         if request.method == "POST":

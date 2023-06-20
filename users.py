@@ -1,6 +1,6 @@
 
 import secrets
-from flask import session, request
+from flask import abort, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.sql import text
 from db import db
@@ -47,8 +47,16 @@ def too_short_username(username):
 def user_id():
     return session.get("user_id", 0)
 
-def is_admin():
-    return True
+def is_admin(user_id):
+    sql = text(
+        """SELECT admin FROM users
+           WHERE id=:user_id""")
+    result = db.session.execute(sql, {"user_id": user_id})
+
+    for row in result:
+        if row[0] == 1:
+            return True
+    return False
 
 def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:

@@ -51,6 +51,12 @@ Sovelluksen ominaisuuksia ovat:
 
 - Komentorivin viimeisellä rivillä näkyy osoite, jonka kautta voit käyttää sovellusta nettiselaimella. 
 
+- Voit testata ylläpitäjän toiminnallisuuksia luomalla ensin käyttäjätunnuksen ja sitten päivittämällä tietokantaan käyttäjän ylläpitäjäksi komentorivillä:
+
+*(venv) $ psql*
+
+*UPDATE users SET admin=1 WHERE username='käyttäjätunnus';*
+
 - Sovellus sulkeutuu painamalla Control+C komentorivillä.
 
 - Lopeta virtuaaliympäristön käyttäminen komennolla: *(venv) $ deactivate*
