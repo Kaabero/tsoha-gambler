@@ -56,6 +56,7 @@ def front_page():
 
 @app.route("/new_bet", methods=["POST"])
 def new_bet():
+    users.check_csrf()
     if not request.form["game_id"]:
         return render_template(
             "error.html",
@@ -80,6 +81,7 @@ def new_bet():
 
 @app.route("/delete_bet", methods=["POST"])
 def delete_bet():
+    users.check_csrf()
     user_id = users.user_id()
     if not request.form["game_id"]:
         return render_template(
@@ -101,6 +103,7 @@ def add_game():
         if request.method == "GET":
             return render_template("add_game.html")
         if request.method == "POST":
+            users.check_csrf()
             home_team = request.form["home_team"]
             visitor_team = request.form["visitor_team"]
             day = request.form["date"]
@@ -125,6 +128,7 @@ def add_outcome():
             fixtures = games.get_closed_games()
             return render_template("add_outcome.html", fixtures=fixtures)
         if request.method == "POST":
+            users.check_csrf()
             if not request.form["game_id"]:
                 return render_template(
                     "error.html",
@@ -150,6 +154,7 @@ def new_competitiom():
         if request.method == "GET":
             return render_template("new_competition.html")
         if request.method == "POST":
+            users.check_csrf()
             games.delete_all()
             return render_template(
                 "successfull_operation.html",

@@ -1,6 +1,6 @@
 
 import secrets
-from flask import session
+from flask import session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.sql import text
 from db import db
@@ -49,3 +49,7 @@ def user_id():
 
 def is_admin():
     return True
+
+def check_csrf():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
