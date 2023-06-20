@@ -10,25 +10,23 @@ Sovelluksen ominaisuuksia ovat:
 * Ylläpitäjä voi lisätä sovellukseen veikkauskohteita.
 * Käyttäjä voi nähdä tulevat pelit.
 * Käyttäjä voi lisätä veikkauksen tuleville peleille.
-* Ylläpitäjä voi lisätä menneille peleille oikean lopputuloksen.
-* Ylläpitäjä voi lisätä käyttäjille pisteitä.
+* Ylläpitäjä voi lisätä menneille peleille oikean lopputuloksen ja pisteyttää pelin.
 * Käyttäjät ja ylläpitäjät voivat tarkastella pistetilannetta.
 * Käyttäjä voi poistaa lisäämänsä veikkauksen ennen pelin alkua. 
 
 ## Versio 18.6.2023
 
 * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-* Sovellukseen voi lisätä veikkauskohteita tulevaisuuteen (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
+* Ylläpitäjä voi lisätä sovellukseen veikkauskohteita tulevaisuuteen.
 * Käyttäjä voi nähdä tulevat pelit.
 * Käyttäjä voi lisätä veikkauksen tuleville peleille.
-* Menneille peleille voi lisätä lopputulokset (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
-* Käyttäjille voi lisätä pisteitä (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
+* Ylläpitäjä voi lisätä menneille peleille lopputulokset ja pisteyttää pelit.
 * Käyttäjä voi tarkastella annettuja veikkauksia.
 * Käyttäjä voi tarkastella pelien lopputuloksia. 
 * Käyttäjä voi tarkastella pisteytystä.
 * Käyttäjä voi katsoa kokonaispistetilanteen. 
 * Käyttäjä voi poistaa oman veikkauksensa tuleville peleille.
-* Käyttäjä voi aloittaa uuden kisan (valmiissa sovelluksessa ylläpitäjän toiminto. Tältä osin kesken).
+* Ylläpitäjä voi aloittaa uuden kisan.
 
 
 ## Ohjeet testaamiseen
@@ -53,9 +51,9 @@ Sovelluksen ominaisuuksia ovat:
 
 - Voit testata ylläpitäjän toiminnallisuuksia luomalla ensin käyttäjätunnuksen ja sitten päivittämällä tietokantaan käyttäjän ylläpitäjäksi komentorivillä:
 
-*(venv) $ psql*
+  - *(venv) $ psql*
 
-*UPDATE users SET admin=1 WHERE username='käyttäjätunnus';*
+  - *# UPDATE users SET admin=1 WHERE username='käyttäjätunnus';*
 
 - Sovellus sulkeutuu painamalla Control+C komentorivillä.
 
