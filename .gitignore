@@ -5,4 +5,5 @@ htmlcov
 .env
 venv
 .pylintrc
-
+fly.toml
+Procfile
