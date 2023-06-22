@@ -47,7 +47,7 @@ def get_bets():
         """SELECT G.home_team, G.visitor_team, G.date, U.username, B.goals_home, B.goals_visitor
                   FROM bets B, users U, games G
                   WHERE B.game_id=G.id AND B.user_id = U.id 
-                  AND G.date BETWEEN NOW() AND G.date ORDER BY G.date""")
+                  ORDER BY G.date DESC""")
     bets = db.session.execute(sql).fetchall()
     return bets
 
