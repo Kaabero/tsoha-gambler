@@ -4,17 +4,9 @@ Sovelluksen avulla ylläpitäjä voi luoda vedonlyöntialustan haluamansa jääk
 
 Sovellus pitää kirjaa käyttäjien veikkauksista, pelien lopputuloksista sekä käyttäjien veikkauksistaan saamista pisteistä.
 
+Sovellus ei ole testattavissa Fly.iossa. Ohjeet sovelluksen käynnistämiseen paikallisesti alempana.
+
 Sovelluksen ominaisuuksia ovat:
-
-* Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-* Ylläpitäjä voi lisätä sovellukseen veikkauskohteita.
-* Käyttäjä voi nähdä tulevat pelit.
-* Käyttäjä voi lisätä veikkauksen tuleville peleille.
-* Ylläpitäjä voi lisätä menneille peleille oikean lopputuloksen ja pisteyttää pelin.
-* Käyttäjät ja ylläpitäjät voivat tarkastella pistetilannetta.
-* Käyttäjä voi poistaa lisäämänsä veikkauksen ennen pelin alkua. 
-
-## Versio 18.6.2023
 
 * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 * Ylläpitäjä voi lisätä sovellukseen veikkauskohteita tulevaisuuteen.
@@ -29,9 +21,9 @@ Sovelluksen ominaisuuksia ovat:
 * Ylläpitäjä voi aloittaa uuden kisan.
 
 
-## Ohjeet testaamiseen
+## Ohjeet sovelluksen käynnistämiseen paikallisesti:
 
-- Lataa sovellus koneellesi GitHubista
+- Lataa sovellus koneellesi GitHubista ja siirry sen juurihakemistoon.
 
 - Luo sovelluksen hakemistoon Pythonin virtuaaliympäristö komennolla: *$ python3 -m venv venv*
 
@@ -47,7 +39,13 @@ Sovelluksen ominaisuuksia ovat:
 
 - Käynnistä sovellus komennolla: *(venv) $ flask run*
 
-- Komentorivin viimeisellä rivillä näkyy osoite, jonka kautta voit käyttää sovellusta nettiselaimella. 
+- Komentorivin viimeisellä rivillä näkyy osoite, jonka kautta voit käyttää sovellusta nettiselaimella.
+
+- Sovellus sulkeutuu painamalla Control+C komentorivillä.
+
+- Lopeta virtuaaliympäristön käyttäminen komennolla: *(venv) $ deactivate*
+
+## Ohjeet ylläpitäjän toimintojen testaamiseksi:  
 
 - Voit testata ylläpitäjän toiminnallisuuksia luomalla ensin käyttäjätunnuksen ja sitten päivittämällä tietokantaan käyttäjän ylläpitäjäksi komentorivillä:
 
@@ -55,8 +53,6 @@ Sovelluksen ominaisuuksia ovat:
 
   - *# UPDATE users SET admin=1 WHERE username='käyttäjätunnus';*
 
-- Sovellus sulkeutuu painamalla Control+C komentorivillä.
 
-- Lopeta virtuaaliympäristön käyttäminen komennolla: *(venv) $ deactivate*
 
 
