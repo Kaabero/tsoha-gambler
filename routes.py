@@ -61,7 +61,12 @@ def new_bet():
         return render_template(
             "error.html",
             message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
-    game_id = request.form["game_id"]
+    try:
+        game_id = int(request.form["game_id"])
+    except:
+        return render_template(
+            "error.html",
+            message="Veikkauksen lisäys ei onnistunut. Syötä jonkin avoimen pelin veikkaustunnus.")
     goals_home = request.form["goals_home"]
     goals_visitor = request.form["goals_visitor"]
     user_id = users.user_id()
@@ -87,7 +92,13 @@ def delete_bet():
         return render_template(
             "error.html",
             message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
-    game_id = request.form["game_id"]
+    try:
+        game_id = int(request.form["game_id"])
+    except:
+        return render_template(
+            "error.html",
+            message="Veikkauksen lisäys ei onnistunut. Tarkista veikkaustunnus.")
+
     if bets.delete_bet(user_id, game_id):
         return render_template(
             "successfull_operation.html",
@@ -135,7 +146,13 @@ def add_outcome():
                 return render_template(
                     "error.html",
                     message="Veikkauksen lisäys ei onnistunut. Syötä veikkaustunnus.")
-            game_id = request.form["game_id"]
+            try:
+                game_id = int(request.form["game_id"])
+            except:
+                return render_template(
+                    "error.html",
+                    message="Veikkauksen lisäys ei onnistunut. Tarkista veikkaustunnus.")
+
             goals_home = request.form["goals_home"]
             goals_visitor = request.form["goals_visitor"]
             if games.add_outcome(game_id, goals_home, goals_visitor):
