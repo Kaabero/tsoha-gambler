@@ -25,15 +25,15 @@ Sovelluksen ominaisuuksia ovat:
 
 - Lataa sovellus koneellesi GitHubista ja siirry sen juurihakemistoon.
 
+- Luo hakemistoon tiedosto .env ja lisää sinne satunnaisesti muodostettu salainen avain: *SECRET_KEY= salainen avain*
+
+- Lisää .env tiedostoon tietokannan osoite: *DATABASE_URL=tietokannan osoite*
+
 - Luo sovelluksen hakemistoon Pythonin virtuaaliympäristö komennolla: *$ python3 -m venv venv*
 
 - Käynnistä virtuaaliympäristö suorittamalla aktivointikomento: *$ source venv/bin/activate*
 
 - Asenna virtuaaliympäristöösi tarvittavat kirjastot komennolla: *(venv) $ pip install -r requirements.txt*
-
-- Luo hakemistoon tiedosto .env ja lisää sinne satunnaisesti muodostettu salainen avain: *SECRET_KEY= salainen avain*
-
-- Lisää .env tiedostoon tietokannan osoite: *DATABASE_URL=tietokannan osoite*
 
 - Luo sovelluksen tarvitsemat taulut ohjaamalla tiedostossa schema.sql olevat komennot PostgreSQL-tulkille: *(venv) $ psql -d tietokannan nimi < schema.sql*
 
